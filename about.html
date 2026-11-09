@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#262625">
+
+    <title>About Us | Great Hands Manpower Cooperative</title>
+
+    <style>
+        :root {
+            --seashell: #F3F2E7;
+            --moon-mist: #E3DAC8;
+            --rodeo-dust: #CBB2A1;
+            --sand-dune: #7E746A;
+            --baltic-sea: #262625;
+            --white: #FFFEFA;
+            --shadow: 0 18px 50px rgba(38, 38, 37, 0.10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* HEADER */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 28px;
+            padding: 16px 7%;
+            background: rgba(243, 242, 231, 0.96);
+            border-bottom: 1px solid rgba(126, 116, 106, 0.22);
+            backdrop-filter: blur(12px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: max-content;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 15px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 4px 4px 0 var(--rodeo-dust);
+        }
+
+        .brand-name {
+            display: block;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .brand-caption {
+            display: block;
+            margin-top: 4px;
+            color: var(--sand-dune);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--sand-dune);
+            font-size: 14px;
+            font-weight: 650;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a:focus-visible,
+        nav a.active {
+            color: var(--baltic-sea);
+        }
+
+        nav a.active {
+            text-decoration: underline;
+            text-decoration-color: var(--rodeo-dust);
+            text-decoration-thickness: 3px;
+            text-underline-offset: 7px;
+        }
+
+        nav .nav-cta {
+            padding: 10px 17px;
+            border-radius: 999px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+        }
+
+        nav .nav-cta:hover,
+        nav .nav-cta:focus-visible {
+            background: var(--sand-dune);
+            color: var(--white);
+        }
+
+        /* HERO */
+
+        .page-hero {
+            position: relative;
+            overflow: hidden;
+            padding: 85px 8% 75px;
+            text-align: center;
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(203, 178, 161, 0.40),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--seashell),
+                    var(--moon-mist)
+                );
+        }
+
+        .page-hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            right: -140px;
+            bottom: -200px;
+            border: 1px solid rgba(126, 116, 106, 0.30);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 30px rgba(126, 116, 106, 0.05),
+                0 0 0 65px rgba(126, 116, 106, 0.04);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0 0 17px;
+            color: var(--sand-dune);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--rodeo-dust);
+        }
+
+        .page-hero h1 {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(38px, 5vw, 60px);
+            font-weight: 500;
+            line-height: 1.12;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 span {
+            color: var(--sand-dune);
+            font-style: italic;
+        }
+
+        .page-hero p {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 20px auto 0;
+            color: #5e5953;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* ABOUT SECTION */
+
+        .about-section {
+            padding: 75px 8% 85px;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            align-items: start;
+            gap: 45px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .about-heading {
+            position: sticky;
+            top: 120px;
+        }
+
+        .about-heading h2 {
+            margin: 0 0 18px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(30px, 4vw, 43px);
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .about-heading h2 span {
+            color: var(--sand-dune);
+            font-style: italic;
+        }
+
+        .heading-line {
+            width: 65px;
+            height: 4px;
+            border-radius: 10px;
+            background: var(--rodeo-dust);
+        }
+
+        .about-content {
+            display: grid;
+            gap: 20px;
+        }
+
+        .about-card {
+            padding: 27px;
+            background: var(--white);
+            border: 1px solid rgba(126, 116, 106, 0.22);
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(38, 38, 37, 0.05);
+        }
+
+        .about-card h3 {
+            margin: 0 0 12px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 23px;
+            font-weight: 600;
+        }
+
+        .about-card p {
+            margin: 0;
+            color: #5e5953;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .about-card p + p {
+            margin-top: 14px;
+        }
+
+        /* PURPOSE CARDS */
+
+        .purpose-section {
+            padding: 65px 8% 80px;
+            background: var(--moon-mist);
+        }
+
+        .section-heading {
+            max-width: 700px;
+            margin: 0 auto 35px;
+            text-align: center;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(29px, 4vw, 40px);
+            font-weight: 500;
+        }
+
+        .section-heading p {
+            margin: 12px 0 0;
+            color: var(--sand-dune);
+        }
+
+        .purpose-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .purpose-card {
+            padding: 25px;
+            background: var(--white);
+            border: 1px solid rgba(126, 116, 106, 0.18);
+            border-radius: 17px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .purpose-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .purpose-icon {
+            display: grid;
+            place-items: center;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 18px;
+            border-radius: 15px;
+            background: var(--moon-mist);
+            font-size: 23px;
+        }
+
+        .purpose-card h3 {
+            margin: 0 0 10px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 21px;
+        }
+
+        .purpose-card p {
+            margin: 0;
+            color: var(--sand-dune);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* CALL TO ACTION */
+
+        .cta-section {
+            padding: 75px 8%;
+        }
+
+        .cta-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 38px 42px;
+            border-radius: 22px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+        }
+
+        .cta-panel h2 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(25px, 3vw, 34px);
+            font-weight: 500;
+        }
+
+        .cta-panel p {
+            margin: 8px 0 0;
+            color: #d4cfc4;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            padding: 13px 20px;
+            border-radius: 999px;
+            background: var(--rodeo-dust);
+            color: var(--baltic-sea);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 750;
+            transition: background 0.2s ease;
+        }
+
+        .cta-button:hover,
+        .cta-button:focus-visible {
+            background: var(--moon-mist);
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 27px 7%;
+            background: var(--baltic-sea);
+            color: #d4cfc4;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer strong {
+            color: var(--seashell);
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 900px) {
+            .site-header {
+                padding-inline: 5%;
+            }
+
+            nav {
+                gap: 13px;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .about-heading {
+                position: static;
+            }
+
+            .purpose-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .site-header {
+                position: static;
+                flex-direction: column;
+                gap: 18px;
+                padding: 18px 5%;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 13px 18px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .page-hero {
+                padding: 65px 6%;
+            }
+
+            .about-section,
+            .purpose-section {
+                padding: 55px 6%;
+            }
+
+            .purpose-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                padding: 55px 6%;
+            }
+
+            .cta-panel {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 30px 25px;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .brand-name {
+                font-size: 14px;
+            }
+
+            .brand-caption {
+                font-size: 10px;
+            }
+
+            .about-card,
+            .purpose-card {
+                padding: 21px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Great Hands Manpower Cooperative Home">
+            <div class="brand-mark">GH</div>
+
+            <div>
+                <span class="brand-name">Great Hands Manpower</span>
+                <span class="brand-caption">Cooperative</span>
+            </div>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="jobs.html">Job Vacancies</a>
+            <a href="application.html">Application</a>
+            <a href="about.html" class="active" aria-current="page">About</a>
+            <a href="contact.html">Contact</a>
+            
+        </nav>
+    </header>
+
+    <!-- PAGE INTRODUCTION -->
+    <section class="page-hero">
+        <div class="eyebrow">Who We Are</div>
+
+        <h1>About <span>Our System</span></h1>
+
+        <p>
+            Learn how the Web-Based Recruitment and Applicant Tracking
+            System aims to make the recruitment process more organized,
+            convenient, and efficient for Great Hands Manpower Cooperative.
+        </p>
+    </section>
+
+    <!-- ABOUT THE SYSTEM -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+
+            <div class="about-heading">
+                <div class="eyebrow">About the Project</div>
+
+                <h2>
+                    Making Recruitment
+                    <span>More Efficient</span>
+                </h2>
+
+                <div class="heading-line"></div>
+            </div>
+
+            <div class="about-content">
+
+                <article class="about-card">
+                    <h3>About the System</h3>
+
+                    <p>
+                        The Web-Based Recruitment and Applicant Tracking
+                        System is proposed for Great Hands Manpower
+                        Cooperative to improve its recruitment process.
+                        The system aims to reduce the use of paper forms,
+                        organize applicant information, and make
+                        communication between the agency and applicants
+                        easier and faster.
+                    </p>
+                </article>
+
+                <article class="about-card">
+                    <h3>How It Works</h3>
+
+                    <p>
+                        Through the system, applicants can conveniently
+                        view available job vacancies and submit their
+                        application requirements online. Meanwhile, the
+                        agency can organize and monitor applicant
+                        information more efficiently.
+                    </p>
+                </article>
+
+                <article class="about-card">
+                    <h3>Our Goal</h3>
+
+                    <p>
+                        The goal of the project is to provide a more
+                        accessible and organized way to manage recruitment
+                        activities, from receiving applications to
+                        monitoring applicants throughout the selection
+                        process.
+                    </p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SYSTEM BENEFITS -->
+    <section class="purpose-section">
+        <div class="section-heading">
+            <div class="eyebrow">System Overview</div>
+            <h2>What the System Aims to Improve</h2>
+
+            <p>
+                The system focuses on organizing recruitment information
+                and making the application process easier to manage.
+            </p>
+        </div>
+
+        <div class="purpose-grid">
+
+            <article class="purpose-card">
+                <div class="purpose-icon">📄</div>
+
+                <h3>Online Applications</h3>
+
+                <p>
+                    Applicants can access the application page and
+                    submit their information online instead of relying
+                    entirely on paper forms.
+                </p>
+            </article>
+
+            <article class="purpose-card">
+                <div class="purpose-icon">📋</div>
+
+                <h3>Organized Records</h3>
+
+                <p>
+                    Applicant information can be arranged in a more
+                    organized way to help the agency review and manage
+                    applications.
+                </p>
+            </article>
+
+            <article class="purpose-card">
+                <div class="purpose-icon">🔎</div>
+
+                <h3>Application Tracking</h3>
+
+                <p>
+                    The system is intended to help administrators
+                    monitor application progress and keep applicant
+                    records easier to review.
+                </p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="cta-section">
+        <div class="cta-panel">
+            <div>
+                <h2>Looking for a Job Opportunity?</h2>
+
+                <p>
+                    Explore the available vacancies and learn how to apply.
+                </p>
+            </div>
+
+            <a class="cta-button" href="jobs.html">
+                View Job Vacancies →
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            &copy; 2026 <strong>Great Hands Manpower Cooperative</strong>.
+            All rights reserved.
+        </p>
+
+        <p>Web-Based Recruitment and Applicant Tracking System</p>
+    </footer>
+
+</body>
+</html>

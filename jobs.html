@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#262625">
+
+    <title>Job Vacancies | Great Hands Manpower Cooperative</title>
+
+    <style>
+        :root {
+            --seashell: #F3F2E7;
+            --moon-mist: #E3DAC8;
+            --rodeo-dust: #CBB2A1;
+            --sand-dune: #7E746A;
+            --baltic-sea: #262625;
+            --white: #FFFEFA;
+            --shadow: 0 18px 50px rgba(38, 38, 37, 0.10);
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* HEADER */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 28px;
+            padding: 16px 7%;
+            background: rgba(243, 242, 231, 0.96);
+            border-bottom: 1px solid rgba(126, 116, 106, 0.22);
+            backdrop-filter: blur(12px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            min-width: max-content;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 15px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 4px 4px 0 var(--rodeo-dust);
+        }
+
+        .brand-name {
+            display: block;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .brand-caption {
+            display: block;
+            margin-top: 4px;
+            color: var(--sand-dune);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--sand-dune);
+            font-size: 14px;
+            font-weight: 650;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a:focus-visible,
+        nav a.active {
+            color: var(--baltic-sea);
+        }
+
+        nav a.active {
+            text-decoration: underline;
+            text-decoration-color: var(--rodeo-dust);
+            text-decoration-thickness: 3px;
+            text-underline-offset: 7px;
+        }
+
+        nav .nav-cta {
+            padding: 10px 17px;
+            border-radius: 999px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+        }
+
+        nav .nav-cta:hover,
+        nav .nav-cta:focus-visible {
+            background: var(--sand-dune);
+            color: var(--white);
+        }
+
+        /* PAGE INTRODUCTION */
+        .page-hero {
+            position: relative;
+            overflow: hidden;
+            padding: 85px 8% 75px;
+            text-align: center;
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(203, 178, 161, 0.40),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--seashell),
+                    var(--moon-mist)
+                );
+        }
+
+        .page-hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            right: -140px;
+            bottom: -200px;
+            border: 1px solid rgba(126, 116, 106, 0.30);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 30px rgba(126, 116, 106, 0.05),
+                0 0 0 65px rgba(126, 116, 106, 0.04);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0 0 17px;
+            color: var(--sand-dune);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--rodeo-dust);
+        }
+
+        .page-hero h1 {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(38px, 5vw, 60px);
+            font-weight: 500;
+            line-height: 1.12;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 span {
+            color: var(--sand-dune);
+            font-style: italic;
+        }
+
+        .page-hero p {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+            margin: 20px auto 0;
+            color: #5e5953;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* JOB LISTINGS */
+        .jobs-section {
+            padding: 75px 8% 90px;
+        }
+
+        .section-heading {
+            max-width: 700px;
+            margin: 0 auto 38px;
+            text-align: center;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(29px, 4vw, 40px);
+            font-weight: 500;
+        }
+
+        .section-heading p {
+            margin: 12px 0 0;
+            color: var(--sand-dune);
+        }
+
+        .jobs-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .job-card {
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            border: 1px solid rgba(126, 116, 106, 0.22);
+            border-radius: 22px;
+            background: var(--white);
+            box-shadow: 0 8px 25px rgba(38, 38, 37, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .job-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .job-icon {
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: var(--moon-mist);
+            font-size: 25px;
+        }
+
+        .job-tag {
+            display: inline-block;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: #e9e4d8;
+            color: var(--baltic-sea);
+            font-size: 12px;
+            font-weight: 750;
+        }
+
+        .job-card h3 {
+            margin: 0 0 10px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 27px;
+            font-weight: 600;
+        }
+
+        .job-description {
+            margin: 0 0 22px;
+            color: var(--sand-dune);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .job-details {
+            margin-bottom: 25px;
+            padding: 18px;
+            border-radius: 14px;
+            background: var(--seashell);
+        }
+
+        .job-details p {
+            margin: 8px 0;
+            color: #5e5953;
+            font-size: 13px;
+        }
+
+        .job-details strong {
+            color: var(--baltic-sea);
+        }
+
+        .apply-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: auto;
+            padding: 14px 20px;
+            border-radius: 999px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 750;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .apply-button:hover,
+        .apply-button:focus-visible {
+            background: var(--sand-dune);
+            transform: translateY(-2px);
+        }
+
+        .apply-button span {
+            font-size: 18px;
+        }
+
+        /* BOTTOM CALL TO ACTION */
+        .cta-section {
+            padding: 0 8% 80px;
+        }
+
+        .cta-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 38px 42px;
+            border-radius: 22px;
+            background: var(--moon-mist);
+        }
+
+        .cta-panel h2 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(25px, 3vw, 34px);
+            font-weight: 500;
+        }
+
+        .cta-panel p {
+            margin: 8px 0 0;
+            color: var(--sand-dune);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            padding: 13px 20px;
+            border-radius: 999px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 750;
+        }
+
+        .cta-button:hover,
+        .cta-button:focus-visible {
+            background: var(--sand-dune);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 27px 7%;
+            background: var(--baltic-sea);
+            color: #d4cfc4;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer strong {
+            color: var(--seashell);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 900px) {
+            .site-header {
+                padding-inline: 5%;
+            }
+
+            nav {
+                gap: 13px;
+            }
+
+            .jobs-container {
+                grid-template-columns: 1fr;
+                max-width: 650px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .site-header {
+                position: static;
+                flex-direction: column;
+                gap: 18px;
+                padding: 18px 5%;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 13px 18px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .page-hero {
+                padding: 65px 6%;
+            }
+
+            .jobs-section {
+                padding: 60px 6%;
+            }
+
+            .cta-panel {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 30px 25px;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .brand-name {
+                font-size: 14px;
+            }
+
+            .brand-caption {
+                font-size: 10px;
+            }
+
+            .job-card {
+                padding: 23px;
+            }
+
+            .job-card h3 {
+                font-size: 24px;
+            }
+
+            .job-top {
+                align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+
+            .job-card[hidden] {
+    display: none !important;
+    }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER AND NAVIGATION -->
+    <header class="site-header">
+        <a class="brand" href="index.html">
+            <span class="brand-mark">GH</span>
+
+            <span>
+                <span class="brand-name">
+                    Great Hands Manpower
+                </span>
+
+                <span class="brand-caption">
+                    Cooperative
+                </span>
+            </span>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="jobs.html" class="active" aria-current="page">
+                Job Vacancies
+            </a>
+            <a href="application.html">Application</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a class="nav-cta" href="application.html">
+                Apply Now ↗
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- PAGE INTRODUCTION -->
+        <section class="page-hero">
+            <span class="eyebrow">Find your opportunity</span>
+
+            <h1>
+                Explore our <span>job vacancies.</span>
+            </h1>
+
+            <p>
+                Great Hands Manpower Cooperative welcomes applicants
+                interested in building their careers. Explore the
+                position below and submit your application online.
+            </p>
+        </section>
+
+        <!-- JOB LISTINGS -->
+        <section class="jobs-section" id="jobs">
+            <div class="section-heading">
+                <h2>Available Job Vacancies</h2>
+
+                <p>
+                    Review the position details to see whether the role
+                    matches your interests and qualifications.
+                </p>
+            </div>
+
+            <div class="jobs-container">
+
+                <!-- WAREHOUSE STAFF -->
+                <article class="job-card" id="warehouseStaffCard" hidden>
+
+            
+                    <div class="job-top">
+                        <div class="job-icon" aria-hidden="true">▤</div>
+
+                        <span class="job-tag">Full-Time</span>
+                    </div>
+
+                    <h3>Warehouse Staff</h3>
+
+                    <p class="job-description">
+                        Assist with the organization, receiving,
+                        releasing, and proper handling of materials
+                        and products in the warehouse.
+                    </p>
+
+                    <div class="job-details">
+                        <p>
+                            <strong>Position:</strong>
+                            Warehouse Staff
+                        </p>
+
+                        <p>
+                            <strong>Employment Type:</strong>
+                            Full-Time
+                        </p>
+
+                        <p>
+                            <strong>Main Duties:</strong>
+                            Organizing items, receiving and releasing
+                            materials, and maintaining a clean and
+                            organized warehouse.
+                        </p>
+                    </div>
+
+                    <a
+                        href="application.html"
+                        class="apply-button"
+                    >
+                        Apply for this Position
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section class="cta-section">
+            <div class="cta-panel">
+                <div>
+                    <h2>Ready to take the next step?</h2>
+
+                    <p>
+                        Start your application and take the next step
+                        toward a new opportunity.
+                    </p>
+                </div>
+
+                <a class="cta-button" href="application.html">
+                    Go to Application ↗
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            <strong>
+                2026 Great Hands Manpower Cooperative
+            </strong>
+        </p>
+
+        <p>
+            Web-Based Recruitment and Applicant Tracking System
+        </p>
+    </footer>
+
+    <script>
+"use strict";
+
+document.addEventListener("DOMContentLoaded", async function () {
+
+    const warehouseCard = document.getElementById("warehouseStaffCard");
+
+    if (!warehouseCard) {
+        return;
+    }
+
+    try {
+        const publicSupabase = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+        const { data, error } = await publicSupabase
+            .from("job_vacancies")
+            .select("id")
+            .eq("position_title", "Warehouse Staff")
+            .eq("is_active", true)
+            .maybeSingle();
+
+        if (error) {
+            throw error;
+        }
+
+        // Show Warehouse Staff only when hiring is ON.
+        warehouseCard.hidden = !data;
+
+    } catch (error) {
+        console.error("Unable to check Warehouse Staff hiring status:", error);
+        warehouseCard.hidden = true;
+    }
+
+});
+</script>
+
+</body>
+</html>

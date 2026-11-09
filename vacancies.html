@@ -1,0 +1,1158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Job Vacancies | Great Hands Manpower Cooperative</title>
+
+    <style>
+        :root {
+            --seashell: #F3F2E7;
+            --moon-mist: #E3DAC8;
+            --rodeo-dust: #CBB2A1;
+            --sand-dune: #7E746A;
+            --baltic-sea: #262625;
+            --white: #fffefa;
+            --border: rgba(38, 38, 37, .14);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 245px;
+            padding: 25px 16px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            overflow-y: auto;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #ffffff25;
+        }
+
+        .logo {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 12px;
+            display: grid;
+            place-items: center;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            border-radius: 15px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .logo-area h2 {
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        .logo-area p {
+            margin-top: 5px;
+            color: var(--rodeo-dust);
+            font-size: 12px;
+        }
+
+        /* Navigation Menu */
+        .menu {
+            display: grid;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px;
+            border-radius: 9px;
+            color: #f3f2e7d9;
+            font-size: 14px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: var(--sand-dune);
+            color: white;
+        }
+
+        .menu .logout {
+            margin-top: 18px;
+            border: 1px solid #ffffff35;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .topbar {
+            min-height: 78px;
+            padding: 16px 35px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+        }
+
+        .topbar p,
+        .admin-profile small {
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--moon-mist);
+            font-weight: bold;
+        }
+
+        .admin-profile strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        /* Page Content */
+        .content {
+            max-width: 1500px;
+            margin: auto;
+            padding: 32px;
+        }
+
+        .eyebrow {
+            color: var(--sand-dune);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .content h2 {
+            margin: 5px 0;
+            font-size: 30px;
+        }
+
+        .intro {
+            color: var(--sand-dune);
+            font-size: 14px;
+        }
+
+        /* Panel */
+        .panel {
+            margin-top: 25px;
+            padding: 25px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .panel h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .panel p {
+            color: var(--sand-dune);
+            font-size: 14px;
+        }
+
+        /* VACANCY MANAGEMENT */
+
+        .vacancy-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .primary-button,
+        .secondary-button,
+        .delete-button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .primary-button {
+            background: var(--baltic-sea);
+            color: white;
+        }
+
+        .secondary-button {
+            background: var(--moon-mist);
+            color: var(--baltic-sea);
+        }
+
+        .delete-button {
+            background: #f3e1dc;
+            color: #963d2e;
+        }
+
+        .primary-button:hover,
+        .secondary-button:hover,
+        .delete-button:hover {
+            opacity: .85;
+        }
+
+        .primary-button:disabled,
+        .secondary-button:disabled,
+        .delete-button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .vacancy-form {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--seashell);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .vacancy-form[hidden] {
+            display: none;
+        }
+
+        .vacancy-form label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .vacancy-form input,
+        .vacancy-form textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--baltic-sea);
+            font: inherit;
+            font-size: 13px;
+        }
+
+        .vacancy-form textarea {
+            min-height: 95px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hiring-control {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+        }
+
+        .hiring-control input {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--baltic-sea);
+            cursor: pointer;
+        }
+
+        .hiring-control label {
+            margin: 0;
+        }
+
+        .vacancy-table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .vacancy-table {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: collapse;
+        }
+
+        .vacancy-table th,
+        .vacancy-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .vacancy-table th {
+            background: var(--seashell);
+            font-size: 12px;
+        }
+
+        .vacancy-table td {
+            overflow-wrap: anywhere;
+        }
+
+        .vacancy-actions {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .vacancy-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .status-open {
+            background: #e1eddf;
+            color: #315d36;
+        }
+
+        .status-closed {
+            background: #f3e1dc;
+            color: #963d2e;
+        }
+
+        .vacancy-message {
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: var(--sand-dune);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 760px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                padding: 16px;
+            }
+
+            .logo-area {
+                padding-bottom: 15px;
+            }
+
+            .logo {
+                width: 43px;
+                height: 43px;
+                margin-bottom: 8px;
+            }
+
+            .menu {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                margin-top: 15px;
+                gap: 5px;
+            }
+
+            .menu a {
+                padding: 9px;
+                font-size: 12px;
+            }
+
+            .menu .logout {
+                margin-top: 0;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 16px;
+            }
+
+            .topbar h1 {
+                font-size: 19px;
+            }
+
+            .admin-profile small {
+                display: none;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .content h2 {
+                font-size: 25px;
+            }
+
+            .panel {
+                padding: 17px;
+            }
+
+            .vacancy-form {
+                padding: 15px;
+            }
+
+            .vacancy-toolbar {
+                align-items: stretch;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo">GH</div>
+
+            <h2>
+                Great Hands<br>
+                Manpower Cooperative
+            </h2>
+
+            <p>Admin Management System</p>
+        </div>
+
+        <nav class="menu">
+            <a href="admin.html">
+                ▦ Dashboard
+            </a>
+
+            <a href="applicants.html">
+                ♙ Applicants
+            </a>
+
+            <a class="active" href="vacancies.html">
+                ▤ Job Vacancies
+            </a>
+
+            <a href="tracking.html">
+                ◷ Application Tracking
+            </a>
+
+            <a href="reports.html">
+                ▥ Reports
+            </a>
+
+            <a class="logout" href="#" id="adminLogout">
+                ↪ Log Out
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div>
+                <h1>Job Vacancies</h1>
+                <p>Great Hands Manpower Cooperative</p>
+            </div>
+
+            <div class="admin-profile">
+                <div class="admin-icon">GH</div>
+
+                <div>
+                    <strong>Administrator</strong>
+                    <small>System Manager</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="content">
+
+            <div class="eyebrow">
+                Admin Management
+            </div>
+
+            <h2>Job Vacancy Management</h2>
+
+            <p class="intro">
+                Add, review, and manage the cooperative’s job vacancies.
+            </p>
+
+            <!-- Vacancy Management Panel -->
+            <section class="panel">
+
+                <div class="vacancy-toolbar">
+                    <div>
+                        <h3>Manage Job Vacancies</h3>
+                        <p>Create and manage the positions offered by the cooperative.</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        id="showVacancyForm">
+                        + Add Job Vacancy
+                    </button>
+                </div>
+
+                <div id="vacancyMessage" class="vacancy-message">
+                    Connecting to Supabase...
+                </div>
+
+                <!-- Add / Edit Vacancy Form -->
+                <form id="vacancyForm" class="vacancy-form" hidden>
+
+                    <h3 id="vacancyFormTitle">Add Job Vacancy</h3>
+
+                    <input type="hidden" id="vacancyId">
+
+                    <div>
+                        <label for="positionTitle">Position Title *</label>
+                        <input
+                            type="text"
+                            id="positionTitle"
+                            required
+                            maxlength="150"
+                            placeholder="Example: Warehouse Staff">
+                    </div>
+
+                    <div>
+                        <label for="positionDescription">Job Description</label>
+                        <textarea
+                            id="positionDescription"
+                            placeholder="Enter the job description"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="positionRequirements">Requirements</label>
+                        <textarea
+                            id="positionRequirements"
+                            placeholder="Enter the job requirements"></textarea>
+                    </div>
+
+                    <div class="hiring-control">
+                        <input type="checkbox" id="vacancyActive">
+                        <label for="vacancyActive">
+                            Hiring is open for this position
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button
+                            type="submit"
+                            class="primary-button"
+                            id="saveVacancyButton">
+                            Save Vacancy
+                        </button>
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="cancelVacancyForm">
+                            Cancel
+                        </button>
+                    </div>
+
+                </form>
+
+                <!-- Vacancy Records -->
+                <div class="vacancy-table-wrap">
+                    <table class="vacancy-table">
+
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Description</th>
+                                <th>Requirements</th>
+                                <th>Hiring Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="vacancyTableBody">
+                            <tr>
+                                <td colspan="5">
+                                    No vacancy records loaded yet.
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            &copy; 2026 Great Hands Manpower Cooperative. All rights reserved.
+        </footer>
+
+    </main>
+
+    <!-- Supabase Authentication -->
+    <script>
+        const adminSupabase = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+        async function checkAdminSession() {
+            try {
+                const { data, error } =
+                    await adminSupabase.auth.getSession();
+
+                if (error || !data.session) {
+                    window.location.replace("login.html");
+                }
+
+            } catch (error) {
+                console.error("Session check failed:", error);
+                window.location.replace("login.html");
+            }
+        }
+
+        const logoutLink = document.getElementById("adminLogout");
+
+        logoutLink.addEventListener("click", async (event) => {
+            event.preventDefault();
+
+            logoutLink.textContent = "Signing out...";
+
+            try {
+                const { error } = await adminSupabase.auth.signOut();
+
+                if (error) {
+                    throw error;
+                }
+
+                window.location.replace("login.html");
+
+            } catch (error) {
+                console.error("Logout failed:", error);
+
+                alert("Unable to log out. Please try again.");
+
+                logoutLink.textContent = "↪ Log Out";
+            }
+        });
+
+        checkAdminSession();
+    </script>
+
+    <!-- VACANCY MANAGEMENT - SUPABASE CONNECTION -->
+    <script>
+
+        // DOM ELEMENTS
+        const vacancyForm = document.getElementById("vacancyForm");
+        const vacancyTableBody = document.getElementById("vacancyTableBody");
+        const vacancyMessage = document.getElementById("vacancyMessage");
+
+        const showVacancyFormButton =
+            document.getElementById("showVacancyForm");
+
+        const cancelVacancyFormButton =
+            document.getElementById("cancelVacancyForm");
+
+        const vacancyIdInput =
+            document.getElementById("vacancyId");
+
+        const positionTitleInput =
+            document.getElementById("positionTitle");
+
+        const positionDescriptionInput =
+            document.getElementById("positionDescription");
+
+        const positionRequirementsInput =
+            document.getElementById("positionRequirements");
+
+        const vacancyActiveInput =
+            document.getElementById("vacancyActive");
+
+        const vacancyFormTitle =
+            document.getElementById("vacancyFormTitle");
+
+        const saveVacancyButton =
+            document.getElementById("saveVacancyButton");
+
+
+        // STORE VACANCY RECORDS
+        let vacancyRecords = [];
+
+
+        // DISPLAY MESSAGES
+        function showVacancyMessage(message, isError = false) {
+            vacancyMessage.textContent = message;
+
+            vacancyMessage.style.color = isError
+                ? "#963d2e"
+                : "var(--sand-dune)";
+        }
+
+
+        // SAFELY DISPLAY DATABASE TEXT
+        function escapeVacancyHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
+
+
+        // DISPLAY VACANCY RECORDS
+        function renderVacancies() {
+
+            if (vacancyRecords.length === 0) {
+                vacancyTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5">No job vacancies found.</td>
+                    </tr>
+                `;
+
+                return;
+            }
+
+            vacancyTableBody.innerHTML = vacancyRecords.map(vacancy => `
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${escapeVacancyHTML(vacancy.position_title)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeVacancyHTML(
+                            vacancy.description || "Not provided"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeVacancyHTML(
+                            vacancy.requirements || "Not provided"
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span class="vacancy-status ${
+                            vacancy.is_active
+                                ? "status-open"
+                                : "status-closed"
+                        }">
+                            ${vacancy.is_active ? "OPEN" : "CLOSED"}
+                        </span>
+
+                        <label class="hiring-control">
+
+                            <input
+                                type="checkbox"
+                                data-action="toggle"
+                                data-id="${escapeVacancyHTML(vacancy.id)}"
+                                ${vacancy.is_active ? "checked" : ""}>
+
+                            Hiring ON/OFF
+
+                        </label>
+
+                    </td>
+
+                    <td>
+
+                        <div class="vacancy-actions">
+
+                            <button
+                                type="button"
+                                class="secondary-button"
+                                data-action="edit"
+                                data-id="${escapeVacancyHTML(vacancy.id)}">
+                                Edit
+                            </button>
+
+                            <button
+                                type="button"
+                                class="delete-button"
+                                data-action="delete"
+                                data-id="${escapeVacancyHTML(vacancy.id)}">
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `).join("");
+        }
+
+
+        // LOAD VACANCIES FROM SUPABASE
+        async function loadVacancies() {
+
+            showVacancyMessage("Loading job vacancies...");
+
+            try {
+
+                const { data, error } = await adminSupabase
+                    .from("job_vacancies")
+                    .select("*")
+                    .order("created_at", { ascending: false });
+
+                if (error) {
+                    throw error;
+                }
+
+                vacancyRecords = data || [];
+
+                renderVacancies();
+
+                showVacancyMessage(
+                    `Successfully loaded ${vacancyRecords.length} job vacancy record(s).`
+                );
+
+            } catch (error) {
+
+                console.error("Loading vacancies failed:", error);
+
+                showVacancyMessage(
+                    "Unable to load job vacancies. Please check your Supabase connection and permissions.",
+                    true
+                );
+            }
+        }
+
+
+        // OPEN FORM FOR A NEW VACANCY
+        showVacancyFormButton.addEventListener("click", () => {
+
+            vacancyForm.reset();
+
+            vacancyIdInput.value = "";
+            vacancyActiveInput.checked = false;
+
+            vacancyFormTitle.textContent = "Add Job Vacancy";
+            saveVacancyButton.textContent = "Save Vacancy";
+
+            vacancyForm.hidden = false;
+
+            vacancyForm.scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+
+
+        // CLOSE FORM
+        cancelVacancyFormButton.addEventListener("click", () => {
+
+            vacancyForm.reset();
+
+            vacancyForm.hidden = true;
+        });
+
+
+        // ADD OR UPDATE VACANCY
+        vacancyForm.addEventListener("submit", async event => {
+
+            event.preventDefault();
+
+            if (!vacancyForm.reportValidity()) {
+                return;
+            }
+
+            const id = vacancyIdInput.value;
+
+            const vacancyData = {
+
+                position_title: positionTitleInput.value.trim(),
+
+                description: positionDescriptionInput.value.trim(),
+
+                requirements: positionRequirementsInput.value.trim(),
+
+                is_active: vacancyActiveInput.checked,
+
+                updated_at: new Date().toISOString()
+            };
+
+            if (!vacancyData.position_title) {
+
+                showVacancyMessage(
+                    "Please enter a position title.",
+                    true
+                );
+
+                return;
+            }
+
+            saveVacancyButton.disabled = true;
+            saveVacancyButton.textContent = "Saving...";
+
+            try {
+
+                let result;
+
+                if (id) {
+
+                    // UPDATE EXISTING VACANCY
+                    result = await adminSupabase
+                        .from("job_vacancies")
+                        .update(vacancyData)
+                        .eq("id", id);
+
+                } else {
+
+                    // INSERT NEW VACANCY
+                    result = await adminSupabase
+                        .from("job_vacancies")
+                        .insert(vacancyData);
+                }
+
+                if (result.error) {
+                    throw result.error;
+                }
+
+                vacancyForm.reset();
+
+                vacancyForm.hidden = true;
+
+                showVacancyMessage(
+                    id
+                        ? "Job vacancy updated successfully."
+                        : "Job vacancy added successfully."
+                );
+
+                await loadVacancies();
+
+            } catch (error) {
+
+                console.error("Saving vacancy failed:", error);
+
+                showVacancyMessage(
+                    "Unable to save the vacancy. Please check the console for details.",
+                    true
+                );
+
+            } finally {
+
+                saveVacancyButton.disabled = false;
+                saveVacancyButton.textContent = "Save Vacancy";
+            }
+        });
+
+
+        // EDIT AND DELETE BUTTONS
+        vacancyTableBody.addEventListener("click", async event => {
+
+            const button = event.target.closest("button[data-action]");
+
+            if (!button) {
+                return;
+            }
+
+            const id = button.dataset.id;
+
+            const vacancy = vacancyRecords.find(
+                record => record.id === id
+            );
+
+            if (!vacancy) {
+                return;
+            }
+
+
+            // EDIT VACANCY
+            if (button.dataset.action === "edit") {
+
+                vacancyIdInput.value = vacancy.id;
+
+                positionTitleInput.value =
+                    vacancy.position_title;
+
+                positionDescriptionInput.value =
+                    vacancy.description || "";
+
+                positionRequirementsInput.value =
+                    vacancy.requirements || "";
+
+                vacancyActiveInput.checked =
+                    Boolean(vacancy.is_active);
+
+                vacancyFormTitle.textContent =
+                    "Edit Job Vacancy";
+
+                saveVacancyButton.textContent =
+                    "Update Vacancy";
+
+                vacancyForm.hidden = false;
+
+                vacancyForm.scrollIntoView({
+                    behavior: "smooth"
+                });
+            }
+
+
+            // DELETE VACANCY
+            if (button.dataset.action === "delete") {
+
+                const confirmed = window.confirm(
+                    `Are you sure you want to delete "${vacancy.position_title}"?`
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                button.disabled = true;
+
+                try {
+
+                    const { error } = await adminSupabase
+                        .from("job_vacancies")
+                        .delete()
+                        .eq("id", id);
+
+                    if (error) {
+                        throw error;
+                    }
+
+                    showVacancyMessage(
+                        "Job vacancy deleted successfully."
+                    );
+
+                    await loadVacancies();
+
+                } catch (error) {
+
+                    console.error("Deleting vacancy failed:", error);
+
+                    showVacancyMessage(
+                        "Unable to delete the vacancy. Please check the console.",
+                        true
+                    );
+
+                    button.disabled = false;
+                }
+            }
+
+        });
+
+
+        // HIRING ON/OFF SWITCH
+        vacancyTableBody.addEventListener("change", async event => {
+
+            const checkbox = event.target.closest(
+                'input[data-action="toggle"]'
+            );
+
+            if (!checkbox) {
+                return;
+            }
+
+            const id = checkbox.dataset.id;
+
+            const newStatus = checkbox.checked;
+
+            checkbox.disabled = true;
+
+            try {
+
+                const { error } = await adminSupabase
+                    .from("job_vacancies")
+                    .update({
+                        is_active: newStatus,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq("id", id);
+
+                if (error) {
+                    throw error;
+                }
+
+                showVacancyMessage(
+                    newStatus
+                        ? "Hiring is now OPEN for this position."
+                        : "Hiring is now CLOSED for this position."
+                );
+
+                await loadVacancies();
+
+            } catch (error) {
+
+                console.error(
+                    "Updating hiring status failed:",
+                    error
+                );
+
+                showVacancyMessage(
+                    "Unable to update hiring status. Please try again.",
+                    true
+                );
+
+                checkbox.checked = !newStatus;
+
+                checkbox.disabled = false;
+            }
+        });
+
+
+        // INITIAL DATABASE LOADING
+        loadVacancies();
+
+    </script>
+
+</body>
+</html>

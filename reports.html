@@ -1,0 +1,973 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports | Great Hands Manpower Cooperative</title>
+
+    <style>
+        :root {
+            --seashell: #F3F2E7;
+            --moon-mist: #E3DAC8;
+            --rodeo-dust: #CBB2A1;
+            --sand-dune: #7E746A;
+            --baltic-sea: #262625;
+            --white: #fffefa;
+            --border: rgba(38, 38, 37, .14);
+            --shadow: 0 10px 30px rgba(38, 38, 37, .06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 245px;
+            padding: 25px 16px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #ffffff25;
+        }
+
+        .logo {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 12px;
+            display: grid;
+            place-items: center;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            border-radius: 15px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .logo-area h2 {
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        .logo-area p {
+            margin-top: 5px;
+            color: var(--rodeo-dust);
+            font-size: 12px;
+        }
+
+        /* Navigation */
+        .menu {
+            display: grid;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px;
+            border-radius: 9px;
+            color: #f3f2e7d9;
+            font-size: 14px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: var(--sand-dune);
+            color: white;
+        }
+
+        .menu .logout {
+            margin-top: 18px;
+            border: 1px solid #ffffff35;
+        }
+
+        /* Main Layout */
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            min-height: 78px;
+            padding: 16px 35px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+        }
+
+        .topbar p,
+        .admin-profile small {
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--moon-mist);
+            font-weight: bold;
+        }
+
+        .admin-profile strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        /* Page Content */
+        .content {
+            max-width: 1500px;
+            margin: auto;
+            padding: 32px;
+        }
+
+        .eyebrow {
+            color: var(--sand-dune);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .content > h2 {
+            margin: 5px 0;
+            font-size: 30px;
+        }
+
+        .intro {
+            color: var(--sand-dune);
+            font-size: 14px;
+        }
+
+        /* Reports Panel */
+        .panel {
+            margin-top: 25px;
+            padding: 25px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .panel h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .panel p {
+            color: var(--sand-dune);
+            font-size: 14px;
+        }
+
+        .reports-heading,
+        .report-list-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .reports-heading h3,
+        .report-list-heading h3 {
+            margin-bottom: 4px;
+        }
+
+        .report-message {
+            margin: 16px 0;
+            padding: 12px 14px;
+            border-radius: 9px;
+            background: var(--seashell);
+            color: var(--sand-dune);
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        /* Summary Cards */
+        .report-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            margin: 20px 0 30px;
+        }
+
+        .report-stat {
+            padding: 19px;
+            background: var(--seashell);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .report-stat span {
+            display: block;
+            color: var(--sand-dune);
+            font-size: 13px;
+        }
+
+        .report-stat strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 28px;
+            line-height: 1.2;
+        }
+
+        /* Filters and Buttons */
+        .report-list {
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+        }
+
+        .report-filters {
+            display: flex;
+            align-items: end;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .report-filter {
+            display: grid;
+            gap: 5px;
+        }
+
+        .report-filter label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .report-filter input {
+            min-height: 42px;
+            padding: 9px 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--baltic-sea);
+            font-size: 13px;
+        }
+
+        .report-button {
+            min-height: 42px;
+            padding: 10px 15px;
+            border: 1px solid var(--baltic-sea);
+            border-radius: 8px;
+            background: var(--baltic-sea);
+            color: var(--white);
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .report-button:hover {
+            opacity: .85;
+        }
+
+        .report-button:focus-visible,
+        .menu a:focus-visible {
+            outline: 2px solid var(--rodeo-dust);
+            outline-offset: 3px;
+        }
+
+        .report-button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .report-button.secondary {
+            background: var(--white);
+            color: var(--baltic-sea);
+        }
+
+        /* Applicant Table */
+        .report-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .report-table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .report-table th,
+        .report-table td {
+            padding: 13px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            vertical-align: top;
+        }
+
+        .report-table th {
+            background: var(--seashell);
+            font-weight: bold;
+        }
+
+        .report-table tbody tr:hover {
+            background: #f8f7f1;
+        }
+
+        .report-status {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 20px;
+            background: var(--moon-mist);
+            color: var(--baltic-sea);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .report-status.status-hired {
+            background: #dce9d8;
+        }
+
+        .report-status.status-rejected {
+            background: #f0dcd6;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 900px) {
+            .report-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                padding: 16px;
+            }
+
+            .logo-area {
+                padding-bottom: 15px;
+            }
+
+            .logo {
+                width: 43px;
+                height: 43px;
+                margin-bottom: 8px;
+            }
+
+            .menu {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                margin-top: 15px;
+                gap: 5px;
+            }
+
+            .menu a {
+                padding: 9px;
+                font-size: 12px;
+            }
+
+            .menu .logout {
+                margin-top: 0;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 16px;
+            }
+
+            .topbar h1 {
+                font-size: 19px;
+            }
+
+            .admin-profile small {
+                display: none;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .content > h2 {
+                font-size: 25px;
+            }
+
+            .panel {
+                padding: 17px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .report-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .reports-heading,
+            .report-list-heading {
+                align-items: stretch;
+            }
+
+            .reports-heading .report-button,
+            .report-list-heading .report-button {
+                width: 100%;
+            }
+
+            .report-filter {
+                width: 100%;
+            }
+
+            .report-filter input {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo">GH</div>
+
+            <h2>
+                Great Hands<br>
+                Manpower Cooperative
+            </h2>
+
+            <p>Admin Management System</p>
+        </div>
+
+        <nav class="menu">
+            <a href="admin.html">▦ Dashboard</a>
+            <a href="applicants.html">♙ Applicants</a>
+            <a href="vacancies.html">▤ Job Vacancies</a>
+            <a href="tracking.html">◷ Application Tracking</a>
+            <a class="active" href="reports.html">▥ Reports</a>
+            <a class="logout" href="#" id="adminLogout">↪ Log Out</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <h1>Reports</h1>
+                <p>Great Hands Manpower Cooperative</p>
+            </div>
+
+            <div class="admin-profile">
+                <div class="admin-icon">GH</div>
+                <div>
+                    <strong>Administrator</strong>
+                    <small>System Manager</small>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="eyebrow">Admin Management</div>
+
+            <h2>Recruitment Reports</h2>
+
+            <p class="intro">
+                Review application totals, status summaries, and recruitment activity.
+            </p>
+
+            <section class="panel reports-panel">
+                <div class="reports-heading">
+                    <div>
+                        <h3>Recruitment Summary</h3>
+                        <p>Overview of applicant submissions and recruitment progress.</p>
+                    </div>
+
+                    <button type="button" id="refreshReports" class="report-button">
+                        Refresh Report
+                    </button>
+                </div>
+
+                <p id="reportMessage" class="report-message"
+                   role="status" aria-live="polite">
+                    Loading recruitment report...
+                </p>
+
+                <div class="report-stats">
+                    <div class="report-stat">
+                        <span>Total Applicants</span>
+                        <strong id="totalCount">0</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Pending</span>
+                        <strong id="pendingCount">0</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Screened</span>
+                        <strong id="screenedCount">0</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Scheduled</span>
+                        <strong id="scheduledCount">0</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Hired</span>
+                        <strong id="hiredCount">0</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Rejected</span>
+                        <strong id="rejectedCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="report-list">
+                    <div class="report-list-heading">
+                        <div>
+                            <h3>Individual Applicant Report</h3>
+                            <p>Filter records by their submission date.</p>
+                        </div>
+
+                        <button type="button" id="exportReport" class="report-button">
+                            Export CSV
+                        </button>
+                    </div>
+
+                    <div class="report-filters">
+                        <div class="report-filter">
+                            <label for="startDate">From</label>
+                            <input type="date" id="startDate">
+                        </div>
+
+                        <div class="report-filter">
+                            <label for="endDate">To</label>
+                            <input type="date" id="endDate">
+                        </div>
+
+                        <button type="button" id="applyDateFilter" class="report-button">
+                            Apply Filter
+                        </button>
+
+                        <button type="button" id="clearDateFilter"
+                                class="report-button secondary">
+                            Clear
+                        </button>
+                    </div>
+
+                    <div class="report-table-wrapper">
+                        <table class="report-table">
+                            <thead>
+                                <tr>
+                                    <th>Applicant Name</th>
+                                    <th>Email</th>
+                                    <th>Position</th>
+                                    <th>Status</th>
+                                    <th>Date Submitted</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="reportTableBody">
+                                <tr>
+                                    <td colspan="5">Loading applicants...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            &copy; 2026 Great Hands Manpower Cooperative. All rights reserved.
+        </footer>
+    </main>
+
+    <!-- Supabase Authentication and Reports -->
+    <script>
+        "use strict";
+
+        const adminSupabase = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+        const reportElements = {
+            total: document.getElementById("totalCount"),
+            pending: document.getElementById("pendingCount"),
+            screened: document.getElementById("screenedCount"),
+            scheduled: document.getElementById("scheduledCount"),
+            hired: document.getElementById("hiredCount"),
+            rejected: document.getElementById("rejectedCount"),
+            message: document.getElementById("reportMessage"),
+            table: document.getElementById("reportTableBody"),
+            refresh: document.getElementById("refreshReports"),
+            export: document.getElementById("exportReport"),
+            start: document.getElementById("startDate"),
+            end: document.getElementById("endDate"),
+            apply: document.getElementById("applyDateFilter"),
+            clear: document.getElementById("clearDateFilter")
+        };
+
+        let allApplicants = [];
+        let filteredApplicants = [];
+
+        async function checkAdminSession() {
+            try {
+                const { data, error } =
+                    await adminSupabase.auth.getSession();
+
+                if (error || !data.session) {
+                    window.location.replace("login.html");
+                    return false;
+                }
+
+                return true;
+            } catch (error) {
+                console.error("Session check failed:", error);
+                window.location.replace("login.html");
+                return false;
+            }
+        }
+
+        function setReportMessage(message) {
+            reportElements.message.textContent = message;
+        }
+
+        function formatDate(value) {
+            if (!value) return "Not available";
+
+            const date = new Date(value);
+
+            if (Number.isNaN(date.getTime())) {
+                return "Not available";
+            }
+
+            return date.toLocaleDateString("en-PH", {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            });
+        }
+
+        function getLocalDateString(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+
+            return `${year}-${month}-${day}`;
+        }
+
+        function createCell(value) {
+            const cell = document.createElement("td");
+            cell.textContent = value || "Not available";
+            return cell;
+        }
+
+        function createStatusBadge(status) {
+            const badge = document.createElement("span");
+            const value = String(status || "Pending");
+            const normalized = value.toLowerCase();
+
+            badge.className = "report-status status-" +
+                normalized.replace(/[^a-z0-9-]/g, "");
+
+            badge.textContent = value;
+
+            return badge;
+        }
+
+        function getSubmissionDate(applicant) {
+            if (!applicant.submitted_at) return null;
+
+            const date = new Date(applicant.submitted_at);
+
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
+
+        function getDateFilteredApplicants() {
+            const startValue = reportElements.start.value;
+            const endValue = reportElements.end.value;
+
+            if (startValue && endValue && startValue > endValue) {
+                throw new Error(
+                    "The start date cannot be later than the end date."
+                );
+            }
+
+            return allApplicants.filter((applicant) => {
+                const date = getSubmissionDate(applicant);
+
+                if (!date) {
+                    return !startValue && !endValue;
+                }
+
+                const day = getLocalDateString(date);
+
+                if (startValue && day < startValue) return false;
+                if (endValue && day > endValue) return false;
+
+                return true;
+            });
+        }
+
+        function renderReport() {
+            const counts = {
+                Pending: 0,
+                Screened: 0,
+                Scheduled: 0,
+                Hired: 0,
+                Rejected: 0
+            };
+
+            reportElements.table.replaceChildren();
+
+            filteredApplicants.forEach((applicant) => {
+                const status = String(
+                    applicant.status || "Pending"
+                ).trim();
+
+                if (Object.prototype.hasOwnProperty.call(counts, status)) {
+                    counts[status]++;
+                }
+
+                const row = document.createElement("tr");
+
+                row.appendChild(createCell(applicant.full_name));
+                row.appendChild(createCell(applicant.email));
+                row.appendChild(createCell(applicant.position));
+
+                const statusCell = document.createElement("td");
+                statusCell.appendChild(createStatusBadge(status));
+                row.appendChild(statusCell);
+
+                row.appendChild(createCell(
+                    formatDate(applicant.submitted_at)
+                ));
+
+                reportElements.table.appendChild(row);
+            });
+
+            reportElements.total.textContent = filteredApplicants.length;
+            reportElements.pending.textContent = counts.Pending;
+            reportElements.screened.textContent = counts.Screened;
+            reportElements.scheduled.textContent = counts.Scheduled;
+            reportElements.hired.textContent = counts.Hired;
+            reportElements.rejected.textContent = counts.Rejected;
+
+            if (filteredApplicants.length === 0) {
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+
+                cell.colSpan = 5;
+                cell.textContent = "No applicants match this report.";
+
+                row.appendChild(cell);
+                reportElements.table.appendChild(row);
+            }
+
+            setReportMessage(
+                `${filteredApplicants.length} applicant(s) in this report.`
+            );
+        }
+
+        async function loadReport() {
+            reportElements.refresh.disabled = true;
+            reportElements.apply.disabled = true;
+            reportElements.export.disabled = true;
+            reportElements.refresh.textContent = "Loading...";
+
+            setReportMessage("Loading applicant report...");
+
+            try {
+                const { data, error } = await adminSupabase
+                    .from("applicants")
+                    .select(
+                        "id, full_name, email, position, status, submitted_at"
+                    )
+                    .order("submitted_at", { ascending: false });
+
+                if (error) throw error;
+
+                allApplicants = data || [];
+                filteredApplicants = getDateFilteredApplicants();
+
+                renderReport();
+            } catch (error) {
+                console.error("Unable to load report:", error);
+
+                reportElements.table.replaceChildren();
+
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+
+                cell.colSpan = 5;
+                cell.textContent =
+                    "Unable to load the report. Please try again.";
+
+                row.appendChild(cell);
+                reportElements.table.appendChild(row);
+
+                setReportMessage(
+                    error.message || "Could not retrieve applicant data."
+                );
+            } finally {
+                reportElements.refresh.disabled = false;
+                reportElements.apply.disabled = false;
+                reportElements.export.disabled = false;
+                reportElements.refresh.textContent = "Refresh Report";
+            }
+        }
+
+        function applyDateFilter() {
+            try {
+                filteredApplicants = getDateFilteredApplicants();
+                renderReport();
+            } catch (error) {
+                setReportMessage(error.message);
+            }
+        }
+
+        function escapeCsv(value) {
+            const text = String(value ?? "");
+            return '"' + text.replace(/"/g, '""') + '"';
+        }
+
+        function exportReport() {
+            const headers = [
+                "Applicant Name",
+                "Email",
+                "Position",
+                "Status",
+                "Date Submitted"
+            ];
+
+            const rows = filteredApplicants.map((applicant) => [
+                applicant.full_name,
+                applicant.email,
+                applicant.position,
+                applicant.status || "Pending",
+                applicant.submitted_at
+                    ? formatDate(applicant.submitted_at)
+                    : "Not available"
+            ]);
+
+            const csv = [headers, ...rows]
+                .map((row) => row.map(escapeCsv).join(","))
+                .join("\r\n");
+
+            const blob = new Blob(
+                ["\uFEFF" + csv],
+                { type: "text/csv;charset=utf-8;" }
+            );
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download = "great-hands-recruitment-report.csv";
+
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        reportElements.refresh.addEventListener("click", loadReport);
+
+        reportElements.apply.addEventListener("click", applyDateFilter);
+
+        reportElements.clear.addEventListener("click", () => {
+            reportElements.start.value = "";
+            reportElements.end.value = "";
+            applyDateFilter();
+        });
+
+        reportElements.export.addEventListener("click", exportReport);
+
+        const logoutLink = document.getElementById("adminLogout");
+
+        logoutLink.addEventListener("click", async (event) => {
+            event.preventDefault();
+            logoutLink.textContent = "Signing out...";
+
+            try {
+                const { error } = await adminSupabase.auth.signOut();
+
+                if (error) throw error;
+
+                window.location.replace("login.html");
+            } catch (error) {
+                console.error("Logout failed:", error);
+
+                alert("Unable to log out. Please try again.");
+
+                logoutLink.textContent = "↪ Log Out";
+            }
+        });
+
+        async function initializeReports() {
+            const isAdmin = await checkAdminSession();
+
+            if (isAdmin) {
+                await loadReport();
+            }
+        }
+
+        initializeReports();
+    </script>
+</body>
+</html>

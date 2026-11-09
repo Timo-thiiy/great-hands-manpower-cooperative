@@ -1,0 +1,1187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicants | Great Hands Manpower Cooperative</title>
+
+    <style>
+        :root {
+            --seashell: #F3F2E7;
+            --moon-mist: #E3DAC8;
+            --rodeo-dust: #CBB2A1;
+            --sand-dune: #7E746A;
+            --baltic-sea: #262625;
+            --white: #fffefa;
+            --border: rgba(38, 38, 37, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 245px;
+            padding: 25px 16px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            overflow-y: auto;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #ffffff25;
+        }
+
+        .logo {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 12px;
+            display: grid;
+            place-items: center;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            border-radius: 15px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .logo-area h2 {
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        .logo-area p {
+            margin-top: 5px;
+            color: var(--rodeo-dust);
+            font-size: 12px;
+        }
+
+        .menu {
+            display: grid;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px;
+            border-radius: 9px;
+            color: #f3f2e7d9;
+            font-size: 14px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: var(--sand-dune);
+            color: white;
+        }
+
+        .menu .logout {
+            margin-top: 18px;
+            border: 1px solid #ffffff35;
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            min-height: 78px;
+            padding: 16px 35px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+        }
+
+        .topbar p,
+        .admin-profile small {
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--moon-mist);
+            font-weight: bold;
+        }
+
+        .admin-profile strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .content {
+            max-width: 1500px;
+            margin: auto;
+            padding: 32px;
+        }
+
+        .eyebrow {
+            color: var(--sand-dune);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .content h2 {
+            margin: 5px 0;
+            font-size: 30px;
+        }
+
+        .intro {
+            color: var(--sand-dune);
+            font-size: 14px;
+        }
+
+        /* APPLICANTS PANEL */
+        .panel {
+            margin-top: 25px;
+            padding: 25px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        
+/* APPLICANTS TABLE */
+.applicants-toolbar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.applicants-toolbar input,
+.applicants-toolbar select,
+.status-select {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--baltic-sea);
+    font: inherit;
+}
+
+.applicants-toolbar input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.applicants-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 15px;
+    padding-bottom: 8px;
+}
+
+.applicants-table {
+    width: 100%;
+    min-width: 1080px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: left;
+    font-size: 13px;
+}
+
+/* COLUMN WIDTHS */
+.applicants-table th:nth-child(1),
+.applicants-table td:nth-child(1) {
+    width: 17%;
+}
+
+.applicants-table th:nth-child(2),
+.applicants-table td:nth-child(2) {
+    width: 19%;
+}
+
+.applicants-table th:nth-child(3),
+.applicants-table td:nth-child(3) {
+    width: 13%;
+}
+
+.applicants-table th:nth-child(4),
+.applicants-table td:nth-child(4) {
+    width: 13%;
+}
+
+.applicants-table th:nth-child(5),
+.applicants-table td:nth-child(5) {
+    width: 14%;
+}
+
+.applicants-table th:nth-child(6),
+.applicants-table td:nth-child(6) {
+    width: 24%;
+}
+
+.applicants-table th,
+.applicants-table td {
+    padding: 16px 15px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.applicants-table th {
+    background: var(--seashell);
+    white-space: nowrap;
+}
+
+.applicants-table td {
+    overflow-wrap: break-word;
+}
+
+.applicants-table td:nth-child(4) {
+    white-space: nowrap;
+}
+
+/* ACTION BUTTONS */
+.applicant-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 250px;
+}
+
+.applicant-actions button {
+    padding: 9px 12px;
+    border: 0;
+    border-radius: 7px;
+    background: var(--baltic-sea);
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.applicant-actions button:hover {
+    background: var(--sand-dune);
+}
+
+.applicant-actions button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.status-select {
+    width: 100%;
+    min-width: 120px;
+    max-width: 145px;
+    font-size: 12px;
+}
+
+
+        /* MODALS */
+        .documents-modal[hidden] {
+            display: none;
+        }
+
+        .documents-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: rgba(38, 38, 37, 0.65);
+        }
+
+        .documents-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 25px;
+            border-radius: 14px;
+            background: var(--white);
+        }
+
+        .documents-modal-content h3 {
+            margin-bottom: 12px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            border: 0;
+            background: transparent;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        #documentsList {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        #documentsList li {
+            margin: 12px 0;
+            overflow-wrap: anywhere;
+        }
+
+        #documentsList a {
+            color: var(--sand-dune);
+            text-decoration: underline;
+        }
+
+        /* GOVERNMENT INFORMATION MODAL */
+        .government-fields {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .government-fields label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .government-fields input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            font: inherit;
+        }
+
+        .government-note {
+            margin-top: 15px;
+            font-size: 12px;
+            color: var(--sand-dune);
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 760px) {
+            .applicants-table {
+                min-width: 1080px;
+            }
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                padding: 16px;
+            }
+
+            .logo-area {
+                padding-bottom: 15px;
+            }
+
+            .logo {
+                width: 43px;
+                height: 43px;
+                margin-bottom: 8px;
+            }
+
+            .menu {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                margin-top: 15px;
+                gap: 5px;
+            }
+
+            .menu a {
+                padding: 9px;
+                font-size: 12px;
+            }
+
+            .menu .logout {
+                margin-top: 0;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 16px;
+            }
+
+            .topbar h1 {
+                font-size: 19px;
+            }
+
+            .admin-profile small {
+                display: none;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .content h2 {
+                font-size: 25px;
+            }
+
+            .panel {
+                padding: 17px;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo">GH</div>
+            <h2>Great Hands<br>Manpower Cooperative</h2>
+            <p>Admin Management System</p>
+        </div>
+
+        <nav class="menu">
+            <a href="admin.html">▦ Dashboard</a>
+            <a class="active" href="applicants.html">♙ Applicants</a>
+            <a href="vacancies.html">▤ Job Vacancies</a>
+            <a href="tracking.html">◷ Application Tracking</a>
+            <a href="reports.html">▥ Reports</a>
+            <a class="logout" href="#" id="adminLogout">↪ Log Out</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1>Applicants</h1>
+                <p>Great Hands Manpower Cooperative</p>
+            </div>
+
+            <div class="admin-profile">
+                <div class="admin-icon">GH</div>
+                <div>
+                    <strong>Administrator</strong>
+                    <small>System Manager</small>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+
+            <div class="eyebrow">Admin Management</div>
+
+            <h2>Applicant Management</h2>
+
+            <p class="intro">
+                Review applications, search applicant records, and manage
+                recruitment status.
+            </p>
+
+            <!-- APPLICANTS TABLE -->
+            <section class="panel">
+
+                <div class="applicants-toolbar">
+
+                    <input
+                        type="search"
+                        id="applicantSearch"
+                        placeholder="Search name or email..."
+                        aria-label="Search applicants"
+                    >
+
+                    <select id="statusFilter" aria-label="Filter by status">
+                        <option value="">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Screened">Screened</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Hired">Hired</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+
+                </div>
+
+                <p id="applicantMessage" role="status" aria-live="polite">
+                    Loading applicant records...
+                </p>
+
+                <div class="applicants-table-wrap">
+
+                    <table class="applicants-table">
+
+                        <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>Email</th>
+                                <th>Position</th>
+                                <th>Date Applied</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="applicantsTableBody">
+                            <tr>
+                                <td colspan="6">Loading applicants...</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </section>
+
+        </div>
+
+        <!-- DOCUMENTS MODAL -->
+        <div id="documentsModal" class="documents-modal" hidden>
+
+            <div
+                class="documents-modal-content"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="documentsTitle"
+            >
+
+                <button
+                    type="button"
+                    id="closeDocuments"
+                    class="close-modal"
+                    aria-label="Close documents"
+                >&times;</button>
+
+                <h3 id="documentsTitle">Applicant Documents</h3>
+
+                <p id="documentsMessage" role="status"></p>
+
+                <ul id="documentsList"></ul>
+
+            </div>
+        </div>
+
+        <!-- GOVERNMENT INFORMATION MODAL -->
+        <div id="governmentModal" class="documents-modal" hidden>
+
+            <div
+                class="documents-modal-content"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="governmentTitle"
+            >
+
+                <button
+                    type="button"
+                    id="closeGovernment"
+                    class="close-modal"
+                    aria-label="Close government information"
+                >&times;</button>
+
+                <h3 id="governmentTitle">
+                    Applicant Government Information
+                </h3>
+
+                <p id="governmentApplicantName"></p>
+
+                <div class="government-fields">
+
+                    <div>
+                        <label for="governmentSSS">SSS Number</label>
+                        <input
+                            type="text"
+                            id="governmentSSS"
+                            readonly
+                        >
+                    </div>
+
+                    <div>
+                        <label for="governmentTIN">TIN</label>
+                        <input
+                            type="text"
+                            id="governmentTIN"
+                            readonly
+                        >
+                    </div>
+
+                    <div>
+                        <label for="governmentPagibig">
+                            Pag-IBIG MID Number
+                        </label>
+                        <input
+                            type="text"
+                            id="governmentPagibig"
+                            readonly
+                        >
+                    </div>
+
+                </div>
+
+                <p class="government-note">
+                    This information is confidential and intended
+                    for authorized administrators only.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            &copy; 2026 Great Hands Manpower Cooperative.
+            All rights reserved.
+        </footer>
+
+    </main>
+
+    <script>
+    "use strict";
+
+    const adminSupabase = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+    const allowedStatuses = [
+        "Pending",
+        "Screened",
+        "Scheduled",
+        "Hired",
+        "Rejected"
+    ];
+
+    let applicants = [];
+
+    const tableBody = document.getElementById("applicantsTableBody");
+    const message = document.getElementById("applicantMessage");
+    const searchInput = document.getElementById("applicantSearch");
+    const statusFilter = document.getElementById("statusFilter");
+
+    const documentsModal = document.getElementById("documentsModal");
+    const documentsList = document.getElementById("documentsList");
+    const documentsMessage = document.getElementById("documentsMessage");
+
+    const governmentModal = document.getElementById("governmentModal");
+    const governmentApplicantName =
+        document.getElementById("governmentApplicantName");
+    const governmentSSS = document.getElementById("governmentSSS");
+    const governmentTIN = document.getElementById("governmentTIN");
+    const governmentPagibig =
+        document.getElementById("governmentPagibig");
+
+
+    function showMessage(text) {
+        message.textContent = text;
+    }
+
+
+    function formatDate(value) {
+        if (!value) return "—";
+
+        const date = new Date(value);
+
+        return Number.isNaN(date.getTime())
+            ? "—"
+            : date.toLocaleDateString();
+    }
+
+
+    function displayStatus(status) {
+        const value = String(status || "Pending").toLowerCase();
+
+        return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+
+    async function checkAdminSession() {
+        try {
+            const { data, error } =
+                await adminSupabase.auth.getSession();
+
+            if (error || !data.session) {
+                window.location.replace("login.html");
+                return false;
+            }
+
+            return true;
+
+        } catch (error) {
+            console.error("Session check failed:", error);
+            window.location.replace("login.html");
+            return false;
+        }
+    }
+
+
+    async function loadApplicants() {
+        showMessage("Loading applicant records...");
+
+        const { data, error } = await adminSupabase
+            .from("applicants")
+            .select(`
+                id,
+                full_name,
+                email,
+                position,
+                status,
+                submitted_at,
+                sss_number,
+                tin_number,
+                pagibig_number
+            `)
+            .order("submitted_at", { ascending: false });
+
+        if (error) {
+            console.error("Unable to load applicants:", error);
+
+            applicants = [];
+            tableBody.replaceChildren();
+
+            showMessage(
+                "Unable to load applicants. Check database permissions and try again."
+            );
+
+            return;
+        }
+
+        applicants = (data || []).map((applicant) => ({
+            ...applicant,
+            status: displayStatus(applicant.status)
+        }));
+
+        renderApplicants();
+    }
+
+
+    function createCell(text) {
+        const cell = document.createElement("td");
+        cell.textContent = text || "—";
+        return cell;
+    }
+
+
+    function renderApplicants() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const selectedStatus = statusFilter.value;
+
+        const filtered = applicants.filter((applicant) => {
+            const name = String(applicant.full_name || "").toLowerCase();
+            const email = String(applicant.email || "").toLowerCase();
+
+            const matchesSearch =
+                name.includes(searchTerm) ||
+                email.includes(searchTerm);
+
+            const matchesStatus =
+                !selectedStatus || applicant.status === selectedStatus;
+
+            return matchesSearch && matchesStatus;
+        });
+
+        tableBody.replaceChildren();
+
+        if (filtered.length === 0) {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 6;
+
+            cell.textContent = applicants.length === 0
+                ? "No applicant records found."
+                : "No applicants match your search or filter.";
+
+            row.appendChild(cell);
+            tableBody.appendChild(row);
+
+            showMessage(
+                applicants.length === 0
+                    ? "No applicant records are available."
+                    : `${filtered.length} matching applicants.`
+            );
+
+            return;
+        }
+
+        for (const applicant of filtered) {
+            const row = document.createElement("tr");
+
+            row.appendChild(createCell(applicant.full_name));
+            row.appendChild(createCell(applicant.email));
+            row.appendChild(createCell(applicant.position));
+            row.appendChild(createCell(formatDate(applicant.submitted_at)));
+
+            /* STATUS SELECT */
+            const statusCell = document.createElement("td");
+            const statusSelect = document.createElement("select");
+
+            statusSelect.className = "status-select";
+
+            statusSelect.setAttribute(
+                "aria-label",
+                `Status for ${applicant.full_name || "applicant"}`
+            );
+
+            for (const status of allowedStatuses) {
+                const option = document.createElement("option");
+
+                option.value = status;
+                option.textContent = status;
+
+                statusSelect.appendChild(option);
+            }
+
+            if (!allowedStatuses.includes(applicant.status)) {
+                const option = document.createElement("option");
+
+                option.value = applicant.status;
+                option.textContent = applicant.status;
+
+                statusSelect.appendChild(option);
+            }
+
+            statusSelect.value = applicant.status;
+            statusCell.appendChild(statusSelect);
+            row.appendChild(statusCell);
+
+            /* ACTION BUTTONS */
+            const actionsCell = document.createElement("td");
+            const actions = document.createElement("div");
+
+            actions.className = "applicant-actions";
+
+            /* SAVE STATUS BUTTON */
+            const saveButton = document.createElement("button");
+
+            saveButton.type = "button";
+            saveButton.textContent = "Save Status";
+
+            saveButton.addEventListener("click", async () => {
+                await updateApplicantStatus(
+                    applicant,
+                    statusSelect,
+                    saveButton
+                );
+            });
+
+            /* VIEW DOCUMENTS BUTTON */
+            const documentsButton = document.createElement("button");
+
+            documentsButton.type = "button";
+            documentsButton.textContent = "View Documents";
+
+            documentsButton.addEventListener("click", async () => {
+                await viewApplicantDocuments(applicant);
+            });
+
+            /* VIEW GOVERNMENT INFORMATION BUTTON */
+            const governmentButton = document.createElement("button");
+
+            governmentButton.type = "button";
+            governmentButton.textContent =
+                "View Government Information";
+
+            governmentButton.addEventListener("click", () => {
+                viewGovernmentInformation(applicant);
+            });
+
+            actions.append(
+                saveButton,
+                documentsButton,
+                governmentButton
+            );
+
+            actionsCell.appendChild(actions);
+            row.appendChild(actionsCell);
+
+            tableBody.appendChild(row);
+        }
+
+        showMessage(`${filtered.length} applicant(s) displayed.`);
+    }
+
+
+    async function updateApplicantStatus(
+        applicant,
+        statusSelect,
+        saveButton
+    ) {
+        const newStatus = statusSelect.value;
+        const oldStatus = applicant.status;
+
+        if (!applicant.id) {
+            alert(
+                "Cannot update this applicant because its database ID is missing."
+            );
+            return;
+        }
+
+        if (!allowedStatuses.includes(newStatus)) {
+            alert("Please select a valid application status.");
+            statusSelect.value = oldStatus;
+            return;
+        }
+
+        if (newStatus === oldStatus) {
+            alert("No status change to save.");
+            return;
+        }
+
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving...";
+
+        try {
+            const { data, error } = await adminSupabase
+                .from("applicants")
+                .update({
+                    status: newStatus,
+                    updated_at: new Date().toISOString()
+                })
+                .eq("id", applicant.id)
+                .select("id, status")
+                .maybeSingle();
+
+            if (error) {
+                console.error("Supabase update error:", {
+                    code: error.code,
+                    message: error.message,
+                    details: error.details,
+                    hint: error.hint
+                });
+
+                throw error;
+            }
+
+            if (!data) {
+                throw new Error(
+                    "No applicant row was returned. The update may have been blocked by a policy."
+                );
+            }
+
+            applicant.status = displayStatus(data.status);
+
+            alert("Applicant status saved to Supabase.");
+
+            await loadApplicants();
+
+        } catch (error) {
+            console.error("Status update failed:", error);
+
+            statusSelect.value = oldStatus;
+
+            alert(
+                "Unable to save the status. Please check the browser Console for the detailed error."
+            );
+
+        } finally {
+            saveButton.disabled = false;
+            saveButton.textContent = "Save Status";
+        }
+    }
+
+
+    /* VIEW APPLICANT DOCUMENTS */
+    async function viewApplicantDocuments(applicant) {
+        documentsModal.hidden = false;
+        documentsList.replaceChildren();
+        documentsMessage.textContent = "Loading documents...";
+
+        try {
+            const { data, error } = await adminSupabase.functions.invoke(
+                "admin-documents",
+                {
+                    body: {
+                        applicant_id: applicant.id
+                    }
+                }
+            );
+
+            if (error) throw error;
+
+            const documents = data?.documents || [];
+
+            documentsList.replaceChildren();
+
+            if (documents.length === 0) {
+                documentsMessage.textContent =
+                    "No uploaded documents were found for this applicant.";
+
+                return;
+            }
+
+            documentsMessage.textContent =
+                `${documents.length} document(s) available. Select a document to open it.`;
+
+            for (const uploadedDocument of documents) {
+                const item = window.document.createElement("li");
+                const link = window.document.createElement("a");
+
+                if (!uploadedDocument.url) {
+                    item.textContent =
+                        `${uploadedDocument.original_file_name || uploadedDocument.document_type || "Document"} — unavailable`;
+
+                    documentsList.appendChild(item);
+                    continue;
+                }
+
+                link.textContent =
+                    uploadedDocument.original_file_name ||
+                    uploadedDocument.document_type ||
+                    "Open document";
+
+                link.href = uploadedDocument.url;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+
+                item.appendChild(link);
+                documentsList.appendChild(item);
+            }
+
+        } catch (error) {
+            console.error("Document retrieval failed:", error);
+
+            documentsMessage.textContent =
+                "Unable to load documents. Please check your admin session and try again.";
+        }
+    }
+
+
+    /* VIEW GOVERNMENT INFORMATION */
+    function viewGovernmentInformation(applicant) {
+        governmentApplicantName.textContent =
+            applicant.full_name || "Applicant";
+
+        governmentSSS.value =
+            applicant.sss_number || "Not provided";
+
+        governmentTIN.value =
+            applicant.tin_number || "Not provided";
+
+        governmentPagibig.value =
+            applicant.pagibig_number || "Not provided";
+
+        governmentModal.hidden = false;
+    }
+
+
+    /* CLOSE DOCUMENTS MODAL */
+    document.getElementById("closeDocuments").addEventListener("click", () => {
+        documentsModal.hidden = true;
+    });
+
+    documentsModal.addEventListener("click", (event) => {
+        if (event.target === documentsModal) {
+            documentsModal.hidden = true;
+        }
+    });
+
+
+    /* CLOSE GOVERNMENT INFORMATION MODAL */
+    document.getElementById("closeGovernment").addEventListener("click", () => {
+        governmentModal.hidden = true;
+    });
+
+    governmentModal.addEventListener("click", (event) => {
+        if (event.target === governmentModal) {
+            governmentModal.hidden = true;
+        }
+    });
+
+
+    /* CLOSE BOTH MODALS USING ESCAPE */
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            documentsModal.hidden = true;
+            governmentModal.hidden = true;
+        }
+    });
+
+
+    /* SEARCH AND FILTER */
+    searchInput.addEventListener("input", renderApplicants);
+    statusFilter.addEventListener("change", renderApplicants);
+
+
+    /* ADMIN LOGOUT */
+    const logoutLink = document.getElementById("adminLogout");
+
+    if (logoutLink) {
+        logoutLink.addEventListener("click", async (event) => {
+            event.preventDefault();
+
+            logoutLink.textContent = "Signing out...";
+
+            try {
+                const { error } = await adminSupabase.auth.signOut();
+
+                if (error) throw error;
+
+                window.location.replace("login.html");
+
+            } catch (error) {
+                console.error("Logout failed:", error);
+
+                alert("Unable to log out. Please try again.");
+
+                logoutLink.textContent = "↪ Log Out";
+            }
+        });
+    }
+
+
+    /* INITIALIZE APPLICANTS PAGE */
+    (async function initializeApplicantsPage() {
+        const authenticated = await checkAdminSession();
+
+        if (!authenticated) return;
+
+        await loadApplicants();
+    })();
+
+    </script>
+
+</body>
+</html>

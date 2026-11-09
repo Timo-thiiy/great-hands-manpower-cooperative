@@ -1,0 +1,1228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Great Hands Manpower Cooperative</title>
+
+    <style>
+        :root {
+            --seashell: #F3F2E7;
+            --moon-mist: #E3DAC8;
+            --rodeo-dust: #CBB2A1;
+            --sand-dune: #7E746A;
+            --baltic-sea: #262625;
+            --white: #fffefa;
+            --border: rgba(38, 38, 37, 0.14);
+            --shadow: 0 5px 20px rgba(38, 38, 37, 0.07);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 20px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            line-height: 1.6;
+        }
+
+        button, input, select {
+            font: inherit;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 245px;
+            height: 100vh;
+            padding: 25px 16px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #ffffff25;
+        }
+
+        .logo {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 12px;
+            display: grid;
+            place-items: center;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            border-radius: 15px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .logo-area h2 {
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        .logo-area p {
+            margin-top: 5px;
+            color: var(--rodeo-dust);
+            font-size: 12px;
+        }
+
+        .menu {
+            display: grid;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px;
+            border-radius: 9px;
+            color: #f3f2e7d9;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: var(--sand-dune);
+            color: white;
+        }
+
+        .menu .logout {
+            margin-top: 18px;
+            border: 1px solid #ffffff35;
+        }
+
+        /* MAIN CONTENT */
+
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            min-height: 78px;
+            padding: 16px 35px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+        }
+
+        .topbar p {
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--moon-mist);
+            font-weight: bold;
+        }
+
+        .admin-profile strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .admin-profile small {
+            color: var(--sand-dune);
+            font-size: 11px;
+        }
+
+        .content {
+            max-width: 1500px;
+            margin: auto;
+            padding: 32px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: var(--sand-dune);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .welcome h2 {
+            margin: 5px 0;
+            font-size: 30px;
+        }
+
+        .welcome p {
+            color: var(--sand-dune);
+            font-size: 14px;
+        }
+
+        /* STATISTICS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 27px;
+        }
+
+        .stat-card {
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card p {
+            color: var(--sand-dune);
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .stat-card h3 {
+            margin-top: 8px;
+            font-size: 30px;
+        }
+
+        /* SECTIONS */
+
+        .dashboard-section {
+            margin-bottom: 25px;
+            padding: 25px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+        }
+
+        .section-header p {
+            color: var(--sand-dune);
+            font-size: 13px;
+        }
+
+        /* SEARCH AND FILTERS */
+
+        .search-area {
+            display: grid;
+            grid-template-columns: minmax(200px, 1.5fr) minmax(180px, 1fr) minmax(150px, 0.8fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input,
+        .filter-select {
+            width: 100%;
+            min-height: 45px;
+            padding: 11px 13px;
+            background: var(--seashell);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+            color: var(--baltic-sea);
+        }
+
+        .search-box input:focus,
+        .filter-select:focus {
+            border-color: var(--sand-dune);
+            box-shadow: 0 0 0 3px #7e746a20;
+        }
+
+        .suggestions {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            right: 0;
+            display: none;
+            max-height: 230px;
+            overflow-y: auto;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            box-shadow: var(--shadow);
+            z-index: 5;
+        }
+
+        .suggestion {
+            width: 100%;
+            padding: 11px 13px;
+            text-align: left;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            color: var(--baltic-sea);
+        }
+
+        .suggestion:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion:hover {
+            background: var(--moon-mist);
+        }
+
+        .suggestion small {
+            display: block;
+            color: var(--sand-dune);
+            font-size: 11px;
+        }
+
+        .no-suggestion {
+            padding: 12px;
+            color: var(--sand-dune);
+            font-size: 13px;
+        }
+
+        /* TABLE */
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 650px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        th {
+            background: var(--seashell);
+            color: var(--sand-dune);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr:hover {
+            background: #f3f2e755;
+        }
+
+        .applicant-name {
+            font-weight: bold;
+        }
+
+        .applicant-email {
+            display: block;
+            margin-top: 3px;
+            color: var(--sand-dune);
+            font-size: 11px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: var(--moon-mist);
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .status.Hired {
+            background: #d9e6d2;
+        }
+
+        .status.Scheduled {
+            background: #e4dfef;
+        }
+
+        .status.Screened {
+            background: #f2e5c9;
+        }
+
+        .status.Pending {
+            background: #eadbd2;
+        }
+
+        .action-btn {
+            padding: 7px 10px;
+            background: var(--baltic-sea);
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .action-btn:hover {
+            background: var(--sand-dune);
+        }
+
+        .empty-state {
+            padding: 25px;
+            text-align: center;
+            color: var(--sand-dune);
+        }
+
+        /* CARDS */
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .info-card {
+            padding: 19px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--seashell);
+        }
+
+        .info-card h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .info-card p {
+            color: var(--sand-dune);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .info-card strong {
+            font-size: 13px;
+        }
+
+        .tracking-list {
+            display: grid;
+            gap: 13px;
+        }
+
+        .tracking-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px;
+            background: var(--seashell);
+            border-radius: 10px;
+        }
+
+        .tracking-icon {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: var(--moon-mist);
+        }
+
+        .tracking-item p {
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        .tracking-item strong {
+            font-size: 14px;
+        }
+
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 1100px) {
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .search-area {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .search-box {
+                grid-column: 1 / -1;
+            }
+
+            .card-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                min-height: auto;
+                padding: 16px;
+            }
+
+            .logo-area {
+                padding-bottom: 15px;
+            }
+
+            .logo {
+                width: 43px;
+                height: 43px;
+                margin-bottom: 8px;
+            }
+
+            .menu {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                margin-top: 15px;
+                gap: 5px;
+            }
+
+            .menu a {
+                padding: 9px;
+                font-size: 12px;
+            }
+
+            .menu .logout {
+                margin-top: 0;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 16px;
+            }
+
+            .topbar h1 {
+                font-size: 19px;
+            }
+
+            .admin-profile small {
+                display: none;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .welcome h2 {
+                font-size: 25px;
+            }
+
+            .stats {
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-card h3 {
+                font-size: 25px;
+            }
+
+            .dashboard-section {
+                padding: 17px;
+            }
+
+            .search-area,
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo">GH</div>
+            <h2>Great Hands<br>Manpower Cooperative</h2>
+            <p>Admin Management System</p>
+        </div>
+
+        <nav class="menu">
+            <a class="active" href="admin.html" aria-current="page">▦ Dashboard</a>
+            <a href="applicants.html">♙ Applicants</a>
+            <a href="vacancies.html">▤ Job Vacancies</a>
+            <a href="tracking.html">◷ Application Tracking</a>
+            <a href="reports.html">▥ Reports</a>
+            <a class="logout" href="#" id="adminLogout">↪ Log Out</a>
+
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1>Admin Dashboard</h1>
+                <p>Great Hands Manpower Cooperative</p>
+            </div>
+
+            <div class="admin-profile">
+                <div class="admin-icon">GH</div>
+                <div>
+                    <strong>Administrator</strong>
+                    <small>System Manager</small>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="content" id="dashboard">
+
+            <!-- WELCOME -->
+            <section class="welcome">
+                <div class="eyebrow">Overview</div>
+                <h2>Welcome, Administrator!</h2>
+                <p>Manage applicants, job vacancies, and recruitment activities in one place.</p>
+            </section>
+
+            <!-- STATISTICS -->
+            <section class="stats">
+                <div class="stat-card">
+                    <p>Total Applicants</p>
+                    <h3 id="totalApplicants">0</h3>
+                </div>
+
+                <div class="stat-card">
+                    <p>Pending Applications</p>
+                    <h3 id="pendingApplicants">0</h3>
+                </div>
+
+                <div class="stat-card">
+                    <p>Applicants Screened</p>
+                    <h3 id="screenedApplicants">0</h3>
+                </div>
+
+                <div class="stat-card">
+                    <p>Hired Applicants</p>
+                    <h3 id="hiredApplicants">0</h3>
+                </div>
+            </section>
+
+            <!-- APPLICANTS -->
+            <section class="dashboard-section" id="applicants">
+                <div class="section-header">
+                    <div>
+                        <h2>Applicant Management</h2>
+                        <p>Search, select, and manage submitted applications.</p>
+                    </div>
+                </div>
+
+                <div class="search-area">
+
+                    <!-- SEARCH WITH AUTOCOMPLETE -->
+                    <div class="search-box">
+                        <input
+                            type="search"
+                            id="applicantSearch"
+                            placeholder="Search applicant name..."
+                            autocomplete="off"
+                            aria-label="Search applicant by name"
+                        >
+                        <div
+                            class="suggestions"
+                            id="suggestions"
+                            role="listbox"
+                        ></div>
+                    </div>
+
+                    <!-- APPLICANT DROPDOWN -->
+                    <select
+                        class="filter-select"
+                        id="applicantDropdown"
+                        aria-label="Select an applicant"
+                    >
+                        <option value="">All Applicants</option>
+                    </select>
+
+                    <!-- STATUS FILTER -->
+                    <select
+                        class="filter-select"
+                        id="statusFilter"
+                        aria-label="Filter by application status"
+                    >
+                        <option value="">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Screened">Screened</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Hired">Hired</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>Position</th>
+                                <th>Date Applied</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="applicantTable"></tbody>
+                    </table>
+                </div>
+
+                <p id="resultCount" style="margin-top: 15px; color: var(--sand-dune); font-size: 12px;"></p>
+            </section>
+
+            <!-- JOB VACANCIES -->
+            <section class="dashboard-section" id="vacancies">
+                <div class="section-header">
+                    <div>
+                        <h2>Job Vacancies</h2>
+                        <p>Overview of current recruitment opportunities.</p>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <article class="info-card">
+                        <h3>Office Staff</h3>
+                        <p>Administrative support and office operations.</p>
+                        <strong>Recruitment: Ongoing</strong>
+                    </article>
+
+                    <article class="info-card">
+                        <h3>Customer Service Representative</h3>
+                        <p>Customer assistance and communication.</p>
+                        <strong>Recruitment: Ongoing</strong>
+                    </article>
+
+                    <article class="info-card">
+                        <h3>Warehouse Personnel</h3>
+                        <p>Inventory, packing, and warehouse operations.</p>
+                        <strong>Recruitment: Ongoing</strong>
+                    </article>
+                </div>
+            </section>
+
+            <!-- APPLICATION TRACKING -->
+            <section class="dashboard-section" id="tracking">
+                <div class="section-header">
+                    <div>
+                        <h2>Application Tracking</h2>
+                        <p>Monitor the current recruitment process.</p>
+                    </div>
+                </div>
+
+                <div class="tracking-list">
+                    <div class="tracking-item">
+                        <div class="tracking-icon">1</div>
+                        <div>
+                            <strong>Application Received</strong>
+                            <p>New applications are listed in Applicant Management.</p>
+                        </div>
+                    </div>
+
+                    <div class="tracking-item">
+                        <div class="tracking-icon">2</div>
+                        <div>
+                            <strong>Application Screening</strong>
+                            <p>Review the applicant's information and qualifications.</p>
+                        </div>
+                    </div>
+
+                    <div class="tracking-item">
+                        <div class="tracking-icon">3</div>
+                        <div>
+                            <strong>Interview Scheduling</strong>
+                            <p>Update an applicant's status when an interview is scheduled.</p>
+                        </div>
+                    </div>
+
+                    <div class="tracking-item">
+                        <div class="tracking-icon">4</div>
+                        <div>
+                            <strong>Hiring Decision</strong>
+                            <p>Mark successful applicants as hired.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REPORTS -->
+            <section class="dashboard-section" id="reports">
+                <div class="section-header">
+                    <div>
+                        <h2>Reports</h2>
+                        <p>Summary of the current applicant records.</p>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="info-card">
+                        <h3>All Applications</h3>
+                        <p>Total applications currently in this dashboard.</p>
+                        <strong id="reportTotal">0 applicants</strong>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Applications in Progress</h3>
+                        <p>Pending, screened, and scheduled applicants.</p>
+                        <strong id="reportProgress">0 applicants</strong>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Successful Applications</h3>
+                        <p>Applicants marked as hired.</p>
+                        <strong id="reportHired">0 applicants</strong>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            &copy; 2026 Great Hands Manpower Cooperative. All rights reserved.
+        </footer>
+
+    </main>
+
+    
+<script>
+"use strict";
+
+// Connect to Supabase.
+const adminSupabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+// Dashboard elements.
+const searchInput = document.getElementById("applicantSearch");
+const suggestions = document.getElementById("suggestions");
+const dropdown = document.getElementById("applicantDropdown");
+const statusFilter = document.getElementById("statusFilter");
+const applicantTable = document.getElementById("applicantTable");
+const resultCount = document.getElementById("resultCount");
+const logoutLink = document.getElementById("adminLogout");
+
+// Real applicant records loaded from Supabase.
+let applicants = [];
+let selectedApplicantId = "";
+
+// Escape HTML before using database values in generated markup.
+// Applicant values are still rendered with textContent wherever possible.
+function formatDate(value) {
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) return "—";
+
+    return date.toLocaleDateString();
+}
+
+// Load applicants only after confirming the admin session.
+async function loadApplicants() {
+    applicantTable.innerHTML = "";
+
+    const loadingRow = document.createElement("tr");
+    const loadingCell = document.createElement("td");
+    loadingCell.colSpan = 5;
+    loadingCell.className = "empty-state";
+    loadingCell.textContent = "Loading applicants...";
+    loadingRow.appendChild(loadingCell);
+    applicantTable.appendChild(loadingRow);
+
+    try {
+        const { data, error } = await adminSupabase
+            .from("applicants")
+            .select("id, full_name, email, position, status, submitted_at")
+            .order("submitted_at", { ascending: false });
+
+        if (error) throw error;
+
+        applicants = (data || []).map(applicant => ({
+            id: applicant.id,
+            name: applicant.full_name || "Unnamed Applicant",
+            email: applicant.email || "",
+            position: applicant.position || "—",
+            status: applicant.status || "Pending",
+            date: formatDate(applicant.submitted_at)
+        }));
+
+        populateDropdown();
+        updateStatistics();
+        renderApplicants();
+    } catch (error) {
+        console.error("Failed to load applicants:", error);
+
+        applicantTable.innerHTML = "";
+
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 5;
+        cell.className = "empty-state";
+        cell.textContent =
+            "Unable to load applicants. Check your connection and admin permissions.";
+
+        row.appendChild(cell);
+        applicantTable.appendChild(row);
+
+        resultCount.textContent = "Applicant data could not be loaded.";
+    }
+}
+
+// Populate the applicant dropdown.
+function populateDropdown() {
+    dropdown.innerHTML = "";
+
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "All Applicants";
+    dropdown.appendChild(defaultOption);
+
+    applicants.forEach(applicant => {
+        const option = document.createElement("option");
+        option.value = String(applicant.id);
+        option.textContent = applicant.name;
+        dropdown.appendChild(option);
+    });
+}
+
+// Update dashboard statistics and report totals.
+function updateStatistics() {
+    const countStatus = status =>
+        applicants.filter(applicant => applicant.status === status).length;
+
+    document.getElementById("totalApplicants").textContent =
+        applicants.length;
+
+    document.getElementById("pendingApplicants").textContent =
+        countStatus("Pending");
+
+    document.getElementById("screenedApplicants").textContent =
+        countStatus("Screened");
+
+    document.getElementById("hiredApplicants").textContent =
+        countStatus("Hired");
+
+    document.getElementById("reportTotal").textContent =
+        applicants.length + " applicants";
+
+    const inProgress =
+        countStatus("Pending") +
+        countStatus("Screened") +
+        countStatus("Scheduled");
+
+    document.getElementById("reportProgress").textContent =
+        inProgress + " applicants";
+
+    document.getElementById("reportHired").textContent =
+        countStatus("Hired") + " applicants";
+}
+
+// Show matching applicants as the administrator types.
+function showSuggestions() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    suggestions.innerHTML = "";
+    suggestions.style.display = "none";
+
+    if (!query) {
+        renderApplicants();
+        return;
+    }
+
+    const matches = applicants.filter(applicant =>
+        applicant.name.toLowerCase().includes(query) ||
+        applicant.email.toLowerCase().includes(query)
+    );
+
+    suggestions.style.display = "block";
+
+    if (matches.length === 0) {
+        const message = document.createElement("div");
+        message.className = "no-suggestion";
+        message.textContent = "No matching applicants found.";
+        suggestions.appendChild(message);
+        renderApplicants();
+        return;
+    }
+
+    matches.forEach(applicant => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "suggestion";
+        button.setAttribute("role", "option");
+
+        const name = document.createElement("strong");
+        name.textContent = applicant.name;
+
+        const email = document.createElement("small");
+        email.textContent = applicant.email;
+
+        button.append(name, email);
+
+        button.addEventListener("click", () => {
+            searchInput.value = applicant.name;
+            selectedApplicantId = String(applicant.id);
+            dropdown.value = String(applicant.id);
+            suggestions.style.display = "none";
+            renderApplicants();
+        });
+
+        suggestions.appendChild(button);
+    });
+
+    renderApplicants();
+}
+
+// Render filtered applicant records.
+function renderApplicants() {
+    const query = searchInput.value.trim().toLowerCase();
+    const dropdownId = dropdown.value;
+    const selectedStatus = statusFilter.value;
+
+    const filtered = applicants.filter(applicant => {
+        const matchesSearch =
+            applicant.name.toLowerCase().includes(query) ||
+            applicant.email.toLowerCase().includes(query);
+
+        const matchesDropdown =
+            !dropdownId || String(applicant.id) === dropdownId;
+
+        const matchesStatus =
+            !selectedStatus || applicant.status === selectedStatus;
+
+        return matchesSearch && matchesDropdown && matchesStatus;
+    });
+
+    applicantTable.innerHTML = "";
+
+    if (filtered.length === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 5;
+        cell.className = "empty-state";
+        cell.textContent = applicants.length === 0
+            ? "No applicants have been submitted yet."
+            : "No applicants match your search or filters.";
+
+        row.appendChild(cell);
+        applicantTable.appendChild(row);
+    } else {
+        filtered.forEach(applicant => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            const name = document.createElement("span");
+            name.className = "applicant-name";
+            name.textContent = applicant.name;
+
+            const email = document.createElement("span");
+            email.className = "applicant-email";
+            email.textContent = applicant.email;
+
+            nameCell.append(name, email);
+
+            const positionCell = document.createElement("td");
+            positionCell.textContent = applicant.position;
+
+            const dateCell = document.createElement("td");
+            dateCell.textContent = applicant.date;
+
+            const statusCell = document.createElement("td");
+            const statusBadge = document.createElement("span");
+            statusBadge.className = "status " + applicant.status;
+            statusBadge.textContent = applicant.status;
+            statusCell.appendChild(statusBadge);
+
+            const actionCell = document.createElement("td");
+            const actionButton = document.createElement("button");
+            actionButton.type = "button";
+            actionButton.className = "action-btn";
+            actionButton.textContent = "Manage";
+
+            actionButton.addEventListener("click", () => {
+                window.location.href = "applicants.html";
+            });
+
+            actionCell.appendChild(actionButton);
+
+            row.append(
+                nameCell,
+                positionCell,
+                dateCell,
+                statusCell,
+                actionCell
+            );
+
+            applicantTable.appendChild(row);
+        });
+    }
+
+    resultCount.textContent =
+        "Showing " + filtered.length +
+        " of " + applicants.length + " applicants.";
+}
+
+// Search as the administrator types.
+searchInput.addEventListener("input", () => {
+    selectedApplicantId = "";
+    dropdown.value = "";
+    showSuggestions();
+});
+
+// Filter by the applicant dropdown.
+dropdown.addEventListener("change", () => {
+    selectedApplicantId = dropdown.value;
+
+    const applicant = applicants.find(
+        item => String(item.id) === dropdown.value
+    );
+
+    searchInput.value = applicant ? applicant.name : "";
+    suggestions.style.display = "none";
+    renderApplicants();
+});
+
+// Filter by status, including Rejected.
+statusFilter.addEventListener("change", renderApplicants);
+
+// Hide suggestions when clicking outside the search box.
+document.addEventListener("click", event => {
+    if (!event.target.closest(".search-box")) {
+        suggestions.style.display = "none";
+    }
+});
+
+// Preserve admin authentication.
+async function checkAdminSession() {
+    try {
+        const { data, error } = await adminSupabase.auth.getSession();
+
+        if (error || !data.session) {
+            window.location.replace("login.html");
+            return;
+        }
+
+        await loadApplicants();
+    } catch (error) {
+        console.error("Session check failed:", error);
+        window.location.replace("login.html");
+    }
+}
+
+// Preserve logout functionality.
+if (logoutLink) {
+    logoutLink.onclick = async function (event) {
+        event.preventDefault();
+        logoutLink.textContent = "Signing out...";
+
+        try {
+            const { error } = await adminSupabase.auth.signOut();
+
+            if (error) throw error;
+
+            window.location.replace("login.html");
+        } catch (error) {
+            console.error("Logout failed:", error);
+            alert("Unable to log out. Please try again.");
+            logoutLink.textContent = "↪ Log Out";
+        }
+    };
+} else {
+    console.error("Logout link not found.");
+}
+
+// Start the dashboard.
+checkAdminSession();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

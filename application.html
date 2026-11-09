@@ -1,0 +1,1358 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#262625">
+
+    <title>Application | Great Hands Manpower Cooperative</title>
+
+    <style>
+        :root {
+            --seashell: #F3F2E7;
+            --moon-mist: #E3DAC8;
+            --rodeo-dust: #CBB2A1;
+            --sand-dune: #7E746A;
+            --baltic-sea: #262625;
+            --white: #FFFEFA;
+            --shadow: 0 18px 50px rgba(38, 38, 37, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--seashell);
+            color: var(--baltic-sea);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* HEADER AND NAVIGATION */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 28px;
+            padding: 16px 7%;
+            background: rgba(243, 242, 231, 0.96);
+            border-bottom: 1px solid rgba(126, 116, 106, 0.22);
+            backdrop-filter: blur(12px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            min-width: max-content;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 15px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 4px 4px 0 var(--rodeo-dust);
+        }
+
+        .brand-name {
+            display: block;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .brand-caption {
+            display: block;
+            margin-top: 4px;
+            color: var(--sand-dune);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        nav a {
+            color: var(--sand-dune);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 650;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a:focus-visible,
+        nav a.active {
+            color: var(--baltic-sea);
+        }
+
+        nav a.active {
+            text-decoration: underline;
+            text-decoration-color: var(--rodeo-dust);
+            text-decoration-thickness: 3px;
+            text-underline-offset: 7px;
+        }
+
+        nav .nav-cta {
+            padding: 10px 17px;
+            border-radius: 999px;
+            background: var(--baltic-sea);
+            color: var(--seashell);
+        }
+
+        nav .nav-cta:hover,
+        nav .nav-cta:focus-visible {
+            background: var(--sand-dune);
+            color: var(--white);
+        }
+
+        /* PAGE INTRODUCTION */
+        .page-hero {
+            padding: 65px 7%;
+            text-align: center;
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(203, 178, 161, 0.40),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--seashell),
+                    var(--moon-mist)
+                );
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0 0 15px;
+            color: var(--sand-dune);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--rodeo-dust);
+        }
+
+        .page-hero h1 {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(36px, 5vw, 55px);
+            font-weight: 500;
+            line-height: 1.15;
+        }
+
+        .page-hero h1 span {
+            color: var(--sand-dune);
+            font-style: italic;
+        }
+
+        .page-hero p {
+            max-width: 650px;
+            margin: 18px auto 0;
+            color: #5e5953;
+            line-height: 1.8;
+        }
+
+        /* APPLICATION FORM AREA */
+        .application-section {
+            padding: 65px 7% 85px;
+        }
+
+        .application-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 38px;
+            border: 1px solid rgba(126, 116, 106, 0.18);
+            border-radius: 24px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .application-intro {
+            max-width: 750px;
+            margin: 0 auto 30px;
+            color: var(--sand-dune);
+            text-align: center;
+        }
+
+        .required {
+            color: #d62828;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .form-section {
+            margin-bottom: 28px;
+            padding: 25px;
+            border: 1px solid #e5dfd3;
+            border-radius: 16px;
+            background: #fffefa;
+        }
+
+        .form-section h2 {
+            margin: 0 0 8px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--moon-mist);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .form-section-note {
+            margin: 10px 0 22px;
+            color: var(--sand-dune);
+            font-size: 13px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            color: var(--baltic-sea);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            min-width: 0;
+            padding: 12px;
+            border: 1px solid #d6cec1;
+            border-radius: 9px;
+            background: var(--white);
+            color: var(--baltic-sea);
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            min-height: 45px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: 2px solid var(--rodeo-dust);
+            outline-offset: 2px;
+            border-color: var(--sand-dune);
+        }
+
+        .form-group input[readonly] {
+            background: var(--moon-mist);
+            color: var(--sand-dune);
+        }
+
+        .upload-box {
+            padding: 13px;
+            border: 1px dashed var(--sand-dune);
+            border-radius: 10px;
+            background: var(--seashell);
+        }
+
+        .upload-box input[type="file"] {
+            padding: 0;
+            border: none;
+            background: transparent;
+            font-size: 12px;
+        }
+
+        .upload-box small {
+            display: block;
+            margin-top: 8px;
+            color: var(--sand-dune);
+            font-size: 12px;
+        }
+
+        /* CONSENT */
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            margin: 25px 0;
+            padding: 18px;
+            border-radius: 12px;
+            background: var(--seashell);
+            color: #514c46;
+            font-size: 13px;
+        }
+
+        .consent input {
+            width: 18px;
+            height: 18px;
+            margin-top: 3px;
+            flex-shrink: 0;
+            accent-color: var(--baltic-sea);
+        }
+
+        .consent label {
+            cursor: pointer;
+        }
+
+        /* FORM BUTTONS */
+        .submit-area {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .submit-button,
+        .back-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 48px;
+            padding: 13px 25px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 750;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .submit-button {
+            background: var(--baltic-sea);
+            color: var(--seashell);
+        }
+
+        .submit-button:hover {
+            background: var(--sand-dune);
+            transform: translateY(-2px);
+        }
+
+        .back-button {
+            border-color: var(--sand-dune);
+            background: transparent;
+            color: var(--baltic-sea);
+        }
+
+        .back-button:hover {
+            background: var(--moon-mist);
+        }
+
+        .prototype-note {
+            margin-top: 28px;
+            padding: 17px;
+            border: 1px solid #d9c5a4;
+            border-radius: 12px;
+            background: #f8f0df;
+            color: #65502f;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .prototype-note strong {
+            color: var(--baltic-sea);
+        }
+
+        .status-message {
+            display: none;
+            margin-top: 20px;
+            padding: 16px;
+            border: 1px solid #d9c5a4;
+            border-radius: 12px;
+            background: #f8f0df;
+            color: #65502f;
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 27px 7%;
+            background: var(--baltic-sea);
+            color: #d4cfc4;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer strong {
+            color: var(--seashell);
+        }
+
+        /* RESPONSIVE LAYOUT */
+        @media (max-width: 900px) {
+            .site-header {
+                padding-inline: 5%;
+            }
+
+            nav {
+                gap: 13px;
+            }
+
+            .application-container {
+                padding: 28px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .site-header {
+                position: static;
+                flex-direction: column;
+                gap: 18px;
+                padding: 18px 5%;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 13px 18px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .page-hero {
+                padding: 55px 6%;
+            }
+
+            .application-section {
+                padding: 45px 5% 60px;
+            }
+
+            .application-container {
+                padding: 22px 16px;
+                border-radius: 18px;
+            }
+
+            .form-section {
+                padding: 20px 15px;
+            }
+
+            .form-section h2 {
+                font-size: 22px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .submit-area {
+                flex-direction: column;
+            }
+
+            .submit-button,
+            .back-button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER AND NAVIGATION -->
+    <header class="site-header">
+        <a class="brand" href="index.html">
+            <span class="brand-mark">GH</span>
+
+            <span>
+                <span class="brand-name">
+                    Great Hands Manpower
+                </span>
+
+                <span class="brand-caption">
+                    Cooperative
+                </span>
+            </span>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="jobs.html">Job Vacancies</a>
+            <a href="application.html"
+               class="active"
+               aria-current="page">Application</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a class="nav-cta" href="jobs.html">View Jobs ↗</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- PAGE INTRODUCTION -->
+        <section class="page-hero">
+            <span class="eyebrow">Take the next step</span>
+
+            <h1>
+                Your application,<br>
+                <span>your opportunity.</span>
+            </h1>
+
+            <p>
+                Complete the application form below. Provide accurate
+                information and attach the documents requested for
+                your application.
+            </p>
+        </section>
+
+        <!-- APPLICATION FORM -->
+        <section class="application-section" id="application">
+            <div class="application-container">
+
+                <p class="application-intro">
+                    Please complete all required fields and upload the required documents 
+                    in PDF format only. Fields marked with <span class="required">*</span> are required. 
+                    Ensure that your information is accurate before submitting the application.
+                </p>
+
+                <form id="applicationForm">
+ 
+                    <!-- APPLICANT INFORMATION -->
+                    <section class="form-section" >
+                        <h2>Applicant Information</h2>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fullName">
+                                    Full Name <span class="required">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="Dela Cruz, Juan Mateo C. "
+                                    title="format: Last Name, First Name, Second Name, Middle Initial."
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">
+                                    Email Address <span class="required">*</span>
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    autocomplete="email"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">
+                                    Contact Number <span class="required">*</span>
+                                </label>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Enter your contact number"
+                                    inputmode="numeric"
+                                    pattern="[0-9]+"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="position">
+                                    Applied Position
+                                </label>
+                                <input
+                                    type="text"
+                                    id="position"
+                                    name="position"
+                                    value="Warehouse Staff"
+                                    readonly>
+                            </div>
+
+                            <div class="form-group full">
+                                <label for="address">
+                                    Complete Address <span class="required">*</span>
+                                </label>
+                                <textarea
+                                    id="address"
+                                    name="address"
+                                    placeholder="Enter your complete address"
+                                    autocomplete="street-address"
+                                    required></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- INITIAL APPLICATION REQUIREMENTS -->
+                    <section class="form-section">
+                        <h2>Initial Application Requirements</h2>
+
+                        <p class="form-section-note">
+                            Select a clear document from your device.
+                            Accepted format: PDF
+                        </p>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="resume">
+                                    Resume / CV <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="resume"
+                                        name="resume"
+                                        accept=".pdf,application/pdf"
+                                        required>
+                                    <small>PDF files only</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="governmentId">
+                                    Valid Government ID
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="governmentId"
+                                        name="governmentId"
+                                        accept=".pdf, application/pdf"
+                                        required>
+                                    <small>PDF files only</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="portfolio">
+                                    Portfolio / Work Samples <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="portfolio"
+                                        name="portfolio"
+                                        accept=".pdf, application/pdf">
+                                    <small>PDF files only</small>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- GOVERNMENT NUMBERS AND FORMS -->
+                    <section class="form-section">
+                        <h2>Government Numbers &amp; Forms</h2>
+
+                        <div class="form-grid">
+                             <!-- SSS 10 Digits Only -->
+                            <div class="form-group">
+                                <label for="sss">SSS Number <span class="required">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="sss"
+                                    name="sss"
+                                    placeholder="Enter 10-digitSSS Number"
+                                    inputmode="numeric"
+                                    maxlength="10"
+                                    pattern="[0-9]{10}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice (0,10)"
+                                    title="SSS number must contain exactly 10 digits"
+                                    required>
+                            </div>
+
+                            <!-- TIN 9 Digits Only -->
+                            <div class="form-group">
+                                <label for="tin">
+                                    Tax Identification Number (TIN) <span class="required">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="tin"
+                                    name="tin"
+                                    placeholder="Enter 9-digit TIN"
+                                    inputmode="numeric"
+                                    maxlength="9"
+                                    pattern="[0-9]{9}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice (0,9)"
+                                    title="TIN must contain exactly 9 digits"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bir2316">BIR Form 2316 <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="bir2316"
+                                        name="bir2316"
+                                        accept=".pdf, application/pdf"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="philhealth">PhilHealth ID <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="philhealth"
+                                        name="philhealth"
+                                        accept=".pdf, application/pdf"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- PAG-IBIG MID Number -->
+                            <div class="form-group">
+                                <label for="pagibig">Pag-IBIG MID Number <span class="required">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="pagibig"
+                                    name="pagibig"
+                                    placeholder="Enter 12-digit Pag-IBIG MID"
+                                    inputmode="numeric"
+                                    maxlength="12"
+                                    pattern="[0-9]{12}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice (0,12)"
+                                    title="PAG-IBIG MID must contain exactly 12 digits"
+                                    required>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- IDENTITY AND ACADEMIC RECORDS -->
+                    <section class="form-section">
+                        <h2>Identity &amp; Academic Records</h2>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="birthCertificate">
+                                    PSA Birth Certificate <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="birthCertificate"
+                                        name="birthCertificate"
+                                        accept=".pdf,application/pdf">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="marriageCertificate">
+                                    PSA Marriage Certificate <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="marriageCertificate"
+                                        name="marriageCertificate"
+                                        accept=".pdf,application/pdf">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tor">
+                                    Official Transcript of Records (TOR) <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="tor"
+                                        name="tor"
+                                        accept=".pdf,application/pdf">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="diploma">
+          College Diploma or High School / SHS Certificate <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="diploma"
+                                        name="diploma"
+                                        accept=".pdf,application/pdf">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- CLEARANCES -->
+                    <section class="form-section">
+                        <h2>Clearances</h2>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="nbi">NBI Clearance <span class="required">*</span>                               
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="nbi"
+                                        name="nbi"
+                                        accept=".pdf,application/pdf"
+                                        required
+                                        >
+                                        <small>PDF files only</small>
+                                </div>
+                            </div>
+
+                            
+                    </section>
+
+                    <!-- MEDICAL AND PERSONAL REQUIREMENTS -->
+                    <section class="form-section">
+                        <h2>Medical &amp; Personal Requirements</h2>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="peme">
+                     Pre-Employment Medical Examination (PEME) <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="peme"
+                                        name="peme"
+                                        accept=".pdf,application/pdf">
+                                        <small>PDF files only</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="drugTest">Drug Test Results <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="drugTest"
+                                        name="drugTest"
+                                        accept=".pdf,application/pdf">
+                                        <small>PDF files only</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="coe">
+                                    Certificate of Employment (COE) <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="coe"
+                                        name="coe"
+                                        accept=".pdf,application/pdf">
+                                        <small>PDF files only</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="photo1x1">1x1 ID Photo <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="photo1x1"
+                                        name="photo1x1"
+                                        accept=".pdf,application/pdf">
+                                    <small>PDF files only</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="photo2x2">2x2 ID Photo <span class="required">*</span>
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="photo2x2"
+                                        name="photo2x2"
+                                        accept=".pdf,application/pdf">
+                                    <small>PDF files only</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="jobseeker">
+                                    First-Time Jobseeker Certificate
+                                </label>
+                                <div class="upload-box">
+                                    <input
+                                        type="file"
+                                        id="jobseeker"
+                                        name="jobseeker"
+                                        accept=".pdf,application/pdf"
+                                        required>
+                                    <small>PDF files only</small>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- CONSENT -->
+                    <div class="consent">
+                        <input
+                            type="checkbox"
+                            id="confirmInformation"
+                            name="confirmInformation"
+                            required>
+
+                        <label for="confirmInformation">
+                             I confirm that the information I provided is accurate and acknowledge
+    the Privacy Notice explaining how Great Hands Manpower Cooperative
+    collects, uses, stores, and protects my personal information. <span class="required">*</span>
+                        </label>
+                    </div>
+
+                    <!-- SUBMIT AND BACK BUTTONS -->
+                    <div class="submit-area">
+                        <button type="submit" class="submit-button">
+                            Submit Application
+                        </button>
+
+                        <a href="jobs.html" class="back-button">
+                            Back to Job Vacancies
+                        </a>
+                    </div>
+
+                    <!-- DEMO STATUS MESSAGE -->
+                    <div
+                        id="statusMessage"
+                        class="status-message"
+                        role="status"
+                        aria-live="polite">
+                    </div>
+
+                    
+
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            <strong> 2026 Great Hands Manpower Cooperative</strong>
+        </p>
+        <p>Web-Based Recruitment and Applicant Tracking System</p>
+    </footer>
+
+    
+    <!-- Load Supabase configuration -->
+<script src="supabase-config.js"></script>
+
+
+<!-- JAVASCRIPT -->
+
+
+<script>
+"use strict";
+
+const applicationForm = document.getElementById("applicationForm");
+const statusMessage = document.getElementById("statusMessage");
+
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
+const MAX_TOTAL_SIZE = 250 * 1024 * 1024;
+const BUCKET = "Applicants-Documents";
+
+const requiredDocuments = [
+  "resume",
+  "governmentId",
+  "bir2316",
+  "philhealth",
+  "nbi",
+  "jobseeker"
+];
+
+const allDocumentFields = [
+  ...requiredDocuments,
+  "portfolio",
+  "birthCertificate",
+  "marriageCertificate",
+  "tor",
+  "diploma",
+  "peme",
+  "drugTest",
+  "coe",
+  "photo1x1",
+  "photo2x2"
+];
+
+function showStatus(message) {
+  if (!statusMessage) return;
+
+  statusMessage.style.display = "block";
+  statusMessage.textContent = message;
+  statusMessage.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+function allowNumbersOnly(input, maxLength) {
+  input.value = input.value
+    .replace(/[^0-9]/g, "")
+    .slice(0, maxLength);
+}
+
+const phoneInput = document.getElementById("phone");
+const sssInput = document.getElementById("sss");
+const tinInput = document.getElementById("tin");
+const pagibigInput = document.getElementById("pagibig");
+
+phoneInput?.addEventListener("input", function () {
+  allowNumbersOnly(this, 20);
+});
+
+sssInput?.addEventListener("input", function () {
+  allowNumbersOnly(this, 10);
+});
+
+tinInput?.addEventListener("input", function () {
+  allowNumbersOnly(this, 9);
+});
+
+pagibigInput?.addEventListener("input", function () {
+  allowNumbersOnly(this, 12);
+});
+
+async function postAction(payload) {
+  const response = await fetch(SUBMIT_APPLICATION_URL, {
+    method: "POST",
+    headers: {
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const result = await response.json().catch(() => ({}));
+
+  if (!response.ok || result.ok !== true) {
+    throw new Error(
+      typeof result.error === "string"
+        ? result.error
+        : "The submission service could not complete the request."
+    );
+  }
+
+  return result;
+}
+
+async function uploadPdf(storagePath, token, file) {
+  const encodedPath = storagePath
+    .split("/")
+    .map(segment => encodeURIComponent(segment))
+    .join("/");
+
+  const uploadUrl =
+    `${SUPABASE_URL.replace(/\/+$/, "")}` +
+    `/storage/v1/object/upload/sign/` +
+    `${encodeURIComponent(BUCKET)}/${encodedPath}` +
+    `?token=${encodeURIComponent(token)}`;
+
+  const response = await fetch(uploadUrl, {
+    method: "PUT",
+    headers: {
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      "Content-Type": "application/pdf"
+    },
+    body: file
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Could not upload ${file.name}. Please try submitting again.`
+    );
+  }
+}
+
+if (applicationForm) {
+  applicationForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    if (!applicationForm.checkValidity()) {
+      applicationForm.reportValidity();
+      return;
+    }
+
+    if (
+      typeof SUPABASE_URL === "undefined" ||
+      typeof SUPABASE_PUBLISHABLE_KEY === "undefined" ||
+      typeof SUBMIT_APPLICATION_URL === "undefined"
+    ) {
+      showStatus("Supabase configuration is missing. Check supabase-config.js.");
+      return;
+    }
+
+    const sss = sssInput?.value.trim() ?? "";
+    const tin = tinInput?.value.trim() ?? "";
+    const pagibig = pagibigInput?.value.trim() ?? "";
+
+    if (!/^\d{10}$/.test(sss)) {
+      showStatus("SSS number must contain exactly 10 digits.");
+      sssInput?.focus();
+      return;
+    }
+
+    if (!/^\d{9}$/.test(tin)) {
+      showStatus("TIN must contain exactly 9 digits.");
+      tinInput?.focus();
+      return;
+    }
+
+    if (!/^\d{12}$/.test(pagibig)) {
+      showStatus("Pag-IBIG MID must contain exactly 12 digits.");
+      pagibigInput?.focus();
+      return;
+    }
+
+    const selectedFiles = new Map();
+    let totalSize = 0;
+
+    for (const name of allDocumentFields) {
+      const input = applicationForm.querySelector(
+        `input[type="file"][name="${name}"]`
+      );
+
+      if (!input) {
+        showStatus(`The document field "${name}" is missing from the form.`);
+        return;
+      }
+
+      const file = input.files?.[0];
+
+      if (!file) {
+        if (requiredDocuments.includes(name)) {
+          showStatus(`Please attach the required document: ${name}.`);
+          input.focus();
+          return;
+        }
+        continue;
+      }
+
+      if (
+        !file.name.toLowerCase().endsWith(".pdf") ||
+        (file.type && file.type !== "application/pdf")
+      ) {
+        showStatus(`Please select a PDF file for ${name}.`);
+        input.focus();
+        return;
+      }
+
+      if (file.size <= 0 || file.size > MAX_FILE_SIZE) {
+        showStatus(`${name} must be greater than 0 bytes and no larger than 25 MB.`);
+        input.focus();
+        return;
+      }
+
+      totalSize += file.size;
+      selectedFiles.set(name, file);
+    }
+
+    if (totalSize > MAX_TOTAL_SIZE) {
+      showStatus("The combined PDF file size must not exceed 250 MB.");
+      return;
+    }
+
+    const getFieldValue = id => {
+      const field = document.getElementById(id);
+      return field ? field.value.trim() : null;
+    };
+
+    const applicantData = {
+      fullName: getFieldValue("fullName"),
+      email: getFieldValue("email"),
+      phone: getFieldValue("phone"),
+      position: getFieldValue("position"),
+      address: getFieldValue("address"),
+      sssNumber: sss,
+      tinNumber: tin,
+      pagibigNumber: pagibig,
+      confirmInformation:
+        document.getElementById("confirmInformation")?.checked === true
+    };
+
+    if (Object.values(applicantData).some(value => value === null)) {
+      showStatus("A required application field is missing from the form.");
+      return;
+    }
+
+    if (!applicantData.confirmInformation) {
+      showStatus("Please confirm that your application information is correct.");
+      document.getElementById("confirmInformation")?.focus();
+      return;
+    }
+
+    const submitButton = applicationForm.querySelector(
+      'button[type="submit"], input[type="submit"]'
+    );
+
+    if (submitButton) submitButton.disabled = true;
+
+    try {
+      showStatus("Step 1 of 4: Starting your application...");
+
+      const session = await postAction({
+        action: "create-session",
+        ...applicantData
+      });
+
+      if (
+        typeof session.sessionId !== "string" ||
+        !session.sessionId
+      ) {
+        throw new Error("The server did not return an upload session.");
+      }
+
+      let completed = 0;
+
+      for (const [documentType, file] of selectedFiles.entries()) {
+        showStatus(
+          `Step 2 of 4: Uploading PDF ${completed + 1} of ${selectedFiles.size}...`
+        );
+
+        const reservation = await postAction({
+          action: "reserve-file",
+          sessionId: session.sessionId,
+          documentType,
+          fileSize: file.size,
+          fileName: file.name
+        });
+
+        if (
+          typeof reservation.fileId !== "string" ||
+          typeof reservation.storagePath !== "string" ||
+          typeof reservation.token !== "string"
+        ) {
+          throw new Error("The server did not prepare the file upload correctly.");
+        }
+
+        await uploadPdf(
+          reservation.storagePath,
+          reservation.token,
+          file
+        );
+
+        showStatus(
+          `Step 3 of 4: Verifying PDF ${completed + 1} of ${selectedFiles.size}...`
+        );
+
+        await postAction({
+          action: "mark-uploaded",
+          sessionId: session.sessionId,
+          fileId: reservation.fileId
+        });
+
+        completed++;
+      }
+
+      showStatus("Step 4 of 4: Finalizing your application...");
+
+      await postAction({
+        action: "finalize",
+        sessionId: session.sessionId
+      });
+
+      showStatus(
+        "Your application and PDF documents were submitted successfully."
+      );
+
+      applicationForm.reset();
+
+    } catch (error) {
+      console.error("Application submission failed:", error);
+
+      showStatus(
+        error instanceof TypeError
+          ? "Could not reach the submission service. Check the function URL, deployment, network connection, and CORS settings."
+          : error instanceof Error
+            ? error.message
+            : "We could not submit your application. Please try again."
+      );
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
+}
+</script>
+
+
+
+
+</body>
+</html>
